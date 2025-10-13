@@ -45,7 +45,7 @@ const PRODUCTS = {
   "ebooks": [
     {
       name: "Mind & Psychology / Self-Help",
-      img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+      img: "https://github.com/suchdigitel/digistore/blob/37c8313ec57212c37adf8d7ececd3d0e8ae2f857/Images/IMG_20251013_141144.png",
       products: [
         { id:"EB-MP-01", title:"Overcoming Imposter Syndrome", img:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop", short:"Tools to rebuild confidence", long:"A practical guide to recognise and overcome feelings of fraudulence, with exercises and reflections.", price:"₹199" },
         { id:"EB-MP-02", title:"Ultimate Guide Towards Emotional Control", img:"https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop", short:"Emotional regulation strategies", long:"Step-by-step methods for managing strong emotions and building emotional resilience.", price:"₹199" },
