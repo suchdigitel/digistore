@@ -4,45 +4,26 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — digistore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="page-gradient">
-  <header class="site-header about-header">
-    <div class="header-inner">
-      <a class="brand" href="index.html">
-        <div class="logo-wrap" aria-hidden>
-          <svg class="logo-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#6b8bff"/><text x="50%" y="55%" font-weight="700" font-size="42" fill="#fff" text-anchor="middle" dominant-baseline="middle">D</text></svg>
-        </div>
-        <div class="brand-text"><div class="brand-title">digistore</div><div class="brand-sub">digital products for creators</div></div>
-      </a>
-      <div class="header-actions"><nav class="top-links"><a href="index.html">Home</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></nav></div>
+<body>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
+        <div style="font-weight:700;color:#fff">digistore</div>
+      </div>
+      <div><a class="btn-ghost" href="index.html">← Home</a></div>
     </div>
   </header>
 
-  <main class="page about-page">
-    <div class="container">
-      <article class="content-card elevated">
-        <h1 class="big-title">About Digistore</h1>
-        <p><strong>Digistore</strong> is a curated marketplace of digital assets for creators, coaches, and wellness brands. We create ready-to-use assets: ebooks, cheat sheets, printable wall art, stickers, AI prompt packs, and starter kits — so creators can focus on sharing their expertise.</p>
-
-        <h3>Our Mission</h3>
-        <p>We help creators move faster by providing thoughtfully-designed digital assets that reduce time-to-market and look professional out-of-the-box.</p>
-
-        <h3>How It Works</h3>
-        <p>Buy via UPI (screenshot) and confirm via the Google Form. Once we confirm your form, we deliver the product within the stated timeframe.</p>
-
-        <p class="muted">This copy is editable — change tone, names, or details as you like.</p>
-        <p><a href="index.html" class="btn-ghost">← Back to store</a></p>
-      </article>
-    </div>
+  <main class="container" style="padding:28px 16px">
+    <article class="content-card">
+      <h1>About Digistore</h1>
+      <p>Digistore is a curated marketplace of digital assets for creators, coaches, and small businesses. We provide ready-to-use products — ebooks, cheat sheets, printable wall art, stickers, AI prompt packs, and starter kits — so creators can focus on what matters.</p>
+      <p class="muted">Edit this file (<code>about.html</code>) to customize your brand story.</p>
+    </article>
   </main>
-
-  <footer class="site-footer about-footer">
-    <div class="footer-inner container">
-      <div>© <span id="year-about"></span> digistore</div>
-    </div>
-  </footer>
-
-<script>document.getElementById('year-about').textContent=new Date().getFullYear();</script>
 </body>
 </html>
