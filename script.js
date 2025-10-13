@@ -269,7 +269,7 @@ const PRODUCTS = {
  - gratitude and intentionality + (bonus: bundle of 5 productivity thoughts poster)*/
   "Printable wall posters": [
     {
-      "State of Mindfulness",
+      "name": "State of Mindfulness",
       "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
       "products": [
         {
