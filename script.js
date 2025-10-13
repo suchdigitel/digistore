@@ -204,18 +204,6 @@ const PRODUCTS = {
     }
   ],
 
-  "Printable Educational/Growth Posters": [
-    { name:"Affirmation Posters", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_152102.png", products:[
-      { id:"WA-01", title:"Dream Big Poster", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1200&auto=format&fit=crop", short:"Motivational poster", long:"High-resolution poster with positive affirmation.", price:"₹99" }
-    ]}
-  ],
-
-  "stickers": [
-    { name:"Planner Stickers", img:"https://images.unsplash.com/photo-1532634896-26909d0d0c43?q=80&w=1200&auto=format&fit=crop", products:[
-      { id:"ST-01", title:"Cute Planner Pack", img:"https://images.unsplash.com/photo-1532634896-26909d0d0c43?q=80&w=1200&auto=format&fit=crop", short:"Planner icons", long:"Digital planner stickers for productivity.", price:"₹49" }
-    ]}
-  ],
-
   "Ai Prompts": [
     {
       "name": "Visual & E-commerce AI Prompts",
@@ -276,50 +264,31 @@ const PRODUCTS = {
       ]
     }
   ],
-
-  "freelancer": [
+/*Printable wall posters(category):
+ - Abstract and typographic + (bonus: bundle of 5 Mind and psychology poster)
+ - gratitude and intentionality + (bonus: bundle of 5 productivity thoughts poster)*/
+  "Printable wall posters": [
     {
-      "name": "Legal & Contracts",
+      "State of Mindfulness",
       "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
       "products": [
         {
-          "id": "AI-FR-01",
-          "title": "The Essential Client Contract Kit",
+          "id": "PW-AT-01",
+          "title": "Abstract and typographic + (bonus: bundle of 5 Mind and psychology poster)",
           "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-          "short": "3 essential legal templates (PDF/DOCX).",
-          "long": "Includes a Master Service Agreement, a Non-Disclosure Agreement (NDA), and a Termination Clause template for client work.",
+          "short": "Wake up a thoughful day.",
+          "long": "",
           "price": "₹399"
-        }
-      ]
-    },
-    {
-      "name": "Business & Finance",
-      "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-      "products": [
-        {
-          "id": "AI-FR-02",
-          "title": "Pricing & Invoicing Template Pack",
+        },
+         {
+          "id": "PW-SL-02",
+          "title": "Stressless + (bonus: bundle of 5 Mind and psychology poster)",
           "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-          "short": "Rate calculator and 5 invoice designs.",
-          "long": "Spreadsheet to calculate hourly vs. project rates, plus five professional invoice templates optimized for international payments.",
-          "price": "₹199"
-        }
-      ]
-    },
-    {
-      "name": "Client Acquisition",
-      "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-      "products": [
-        {
-          "id": "AI-CA-03",
-          "title": "High-Converting Proposal Template",
-          "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-          "short": "Editable proposal for winning clients.",
-          "long": "A comprehensive, 8-page proposal template covering scope, pricing, testimonials, and clear next steps to seal the deal with new clients.",
-          "price": "₹249"
-        }
-      ]
-    }
+          "short": "Wake up a thoughful day.",
+          "long": "",
+          "price": "₹399"
+          ]
+      }
   ]
 };
 /* ==================================================== */
