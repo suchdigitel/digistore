@@ -110,15 +110,98 @@ const PRODUCTS = {
   ],
 
   /* OTHER categories (you asked to auto-fill others) - sample products added */
-  "cheats": [
-    { name:"Design Cheats", 
-      img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_143929.png", 
-      products:[
-      { id:"CS-DG-01", title:"Color Psychology Cheat Sheet", img:"https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop", short:"Colors & meanings", long:"Quick cheat sheet on color usage for branding.", price:"₹49" }
-    ]},
-    { name:"Marketing Cheats", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop", products:[
-      { id:"CS-MK-01", title:"Social Media Cheatsheet", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop", short:"Post templates & captions", long:"Fast actionable prompts and posting schedule.", price:"₹79" }
-    ]}
+
+  "cheat sheet (category)": [
+    {
+      "name": "Social Media & Content Strategy",
+      "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "CS-SM-01",
+          "title": "Ultimate Hashtag Strategy",
+          "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
+          "short": "Trending & evergreen hashtag sets.",
+          "long": "A complete guide to finding and layering hashtags for maximum reach and target audience engagement.",
+          "price": "₹69"
+        },
+        {
+          "id": "CS-SM-02",
+          "title": "Video Hook Formulas",
+          "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
+          "short": "10 attention-grabbing openers.",
+          "long": "Ready-to-use script templates to hook viewers in the first 3 seconds of any short-form video.",
+          "price": "₹49"
+        },
+        {
+          "id": "CS-SM-03",
+          "title": "Perfect Posting Schedule",
+          "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
+          "short": "Optimal times for all platforms.",
+          "long": "A data-backed schedule showing the best day and time to post on Instagram, TikTok, LinkedIn, and X.",
+          "price": "₹39"
+        },
+        {
+          "id": "CS-SM-04",
+          "title": "Social Media Image Sizing",
+          "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
+          "short": "Quick size reference for 6 platforms.",
+          "long": "The definitive visual guide for all major image dimensions: posts, stories, reels, carousels, and profile headers.",
+          "price": "₹49"
+        }
+      ]
+    },
+    {
+      "name": "Design & Creativity",
+      "img": "https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "CS-DG-01",
+          "title": "Canva Shortcuts and Tips",
+          "img": "https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop",
+          "short": "Master the canvas with hotkeys.",
+          "long": "A powerful list of keyboard shortcuts and hidden tips to speed up your design workflow in Canva by 50%.",
+          "price": "₹29"
+        },
+        {
+          "id": "CS-DG-02",
+          "title": "Color Psychology for Brands",
+          "img": "https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop",
+          "short": "Match feelings to your color palette.",
+          "long": "Quick guide on how different colors influence emotion and perception, perfect for branding and marketing materials.",
+          "price": "₹59"
+        }
+      ]
+    },
+    {
+      "name": "Business & Productivity",
+      "img": "https://images.unsplash.com/photo-1517430816045-df4b7de166a1?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "CS-BP-01",
+          "title": "AI Prompt Engineering",
+          "img": "https://images.unsplash.com/photo-1517430816045-df4b7de166a1?q=80&w=1200&auto=format&fit=crop",
+          "short": "Formulas for better AI outputs.",
+          "long": "Structure and keywords to use in your prompts to generate higher-quality text, code, and images from large language models.",
+          "price": "₹99"
+        },
+        {
+          "id": "CS-BP-02",
+          "title": "Project Management Workflow",
+          "img": "https://images.unsplash.com/photo-1517430816045-df4b7de166a1?q=80&w=1200&auto=format&fit=crop",
+          "short": "Step-by-step task flow.",
+          "long": "A visual workflow chart detailing the stages of a project, from initiation and planning to execution and closure.",
+          "price": "₹69"
+        },
+        {
+          "id": "CS-BP-03",
+          "title": "Freelancer Proposal Template",
+          "img": "https://images.unsplash.com/photo-1517430816045-df4b7de166a1?q=80&w=1200&auto=format&fit=crop",
+          "short": "Editable proposal for clients.",
+          "long": "A comprehensive, fill-in-the-blanks document covering scope, pricing, terms, and next steps for winning client projects.",
+          "price": "₹129"
+        }
+      ]
+    }
   ],
 
   "printable educational/growth posters": [
