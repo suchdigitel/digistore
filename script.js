@@ -133,8 +133,8 @@ const PRODUCTS = {
     ]}
   ],
 
-  "ai": [
-    { name:"Prompt Packs", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop", products:[
+  "ai prompts": [
+    { name:"Prompt Packs", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_153230.png", products:[
       { id:"AI-01", title:"Content Prompts Pack", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop", short:"100 content prompts", long:"Prompts for blogs, captions and emails.", price:"₹149" }
     ]}
   ],
