@@ -216,16 +216,96 @@ const PRODUCTS = {
     ]}
   ],
 
-  "ai prompts": [
-    { name:"Prompt Packs", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_153230.png", products:[
-      { id:"AI-01", title:"Content Prompts Pack", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop", short:"100 content prompts", long:"Prompts for blogs, captions and emails.", price:"₹149" }
-    ]}
+  "Ai Prompts": [
+    {
+      "name": "Visual & E-commerce AI Prompts",
+      "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "AI-VEP-01",
+          "title": "Midjourney / DALL-E Product Mockup & Branding Kit",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+          "short": "Visual Prompts for E-commerce Sellers/Digital Creators.",
+          "long": "A detailed set of prompt formulas to generate stunning, realistic product photography and lifestyle mockups for branding and listings.",
+          "price": "₹199"
+        },
+        {
+          "id": "AI-VEP-02",
+          "title": "The Hyper-Specific Niche Art Generator",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=fit",
+          "short": "Unique art styles for Print-on-Demand Sellers.",
+          "long": "Advanced prompt chains designed to produce unique, high-selling graphics and designs in competitive and niche markets for POD platforms.",
+          "price": "₹199"
+        }
+      ]
+    },
+    {
+      "name": "Content & Strategy AI Prompts",
+      "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "AI-VEP-03",
+          "title": "The SEO-Optimized Blog Post Generator",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+          "short": "Full article prompts for Freelance Writers/Content Marketers.",
+          "long": "A prompt workflow for generating a complete, structure-perfect, and keyword-rich blog post ready for quick editing and publishing.",
+          "price": "₹149"
+        },
+        {
+          "id": "AI-VEP-04",
+          "title": "5-Minute Social Media Content Creator",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+          "short": "Rapid daily content generation and captions.",
+          "long": "A prompt system that efficiently takes one idea and converts it into multiple days of engaging posts, hooks, and calls to action.",
+          "price": "₹99"
+        }
+      ]
+    }
   ],
 
   "freelancer": [
-    { name:"Starter Kits", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop", products:[
-      { id:"FR-01", title:"Freelancer Starter Pack", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop", short:"Templates & contracts", long:"Contracts, briefs and templates to start freelancing.", price:"₹299" }
-    ]}
+    {
+      "name": "Legal & Contracts",
+      "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "AI-FR-01",
+          "title": "The Essential Client Contract Kit",
+          "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+          "short": "3 essential legal templates (PDF/DOCX).",
+          "long": "Includes a Master Service Agreement, a Non-Disclosure Agreement (NDA), and a Termination Clause template for client work.",
+          "price": "₹399"
+        }
+      ]
+    },
+    {
+      "name": "Business & Finance",
+      "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "AI-FR-02",
+          "title": "Pricing & Invoicing Template Pack",
+          "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+          "short": "Rate calculator and 5 invoice designs.",
+          "long": "Spreadsheet to calculate hourly vs. project rates, plus five professional invoice templates optimized for international payments.",
+          "price": "₹199"
+        }
+      ]
+    },
+    {
+      "name": "Client Acquisition",
+      "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "AI-CA-03",
+          "title": "High-Converting Proposal Template",
+          "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+          "short": "Editable proposal for winning clients.",
+          "long": "A comprehensive, 8-page proposal template covering scope, pricing, testimonials, and clear next steps to seal the deal with new clients.",
+          "price": "₹249"
+        }
+      ]
+    }
   ]
 };
 /* ==================================================== */
