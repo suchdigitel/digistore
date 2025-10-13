@@ -260,6 +260,20 @@ const PRODUCTS = {
           "price": "₹99"
         }
       ]
+    },
+     {
+      "name": "Tutor & Activity Generation Prompts",
+      "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "products": [
+        {
+          "id": "AI-EDU-02",
+          "title": "Teacher's Aide Lesson & Activity Planner",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+          "short": "Customized learning prompts for Tutors.",
+          "long": "A prompt system for Tutors to quickly generate tailored study guides, personalized practice problems, and engaging activities based on individual student progress and weak points.",
+          "price": "₹129"
+        }
+      ]
     }
   ],
 
