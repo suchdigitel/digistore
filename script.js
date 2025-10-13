@@ -114,7 +114,7 @@ PRODUCTS = {
   "Cheat Sheets": [
     {
       "name": "Social Media & Content Strategy",
-      "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
+      "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_143929.png",
       "products": [
         {
           "id": "CS-SM-01",
