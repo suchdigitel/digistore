@@ -121,8 +121,8 @@ const PRODUCTS = {
     ]}
   ],
 
-  "wall": [
-    { name:"Affirmation Posters", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1200&auto=format&fit=crop", products:[
+  "printable educational/growth posters": [
+    { name:"Affirmation Posters", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_152102.png", products:[
       { id:"WA-01", title:"Dream Big Poster", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1200&auto=format&fit=crop", short:"Motivational poster", long:"High-resolution poster with positive affirmation.", price:"₹99" }
     ]}
   ],
