@@ -1,395 +1,502 @@
-// ===== main.js (final) =====
-// CONFIG - update with real values
+/* script.js - full site logic
+   - Click Category -> subcategories appear + category products view
+   - Click Subcategory -> ONLY products of that subcategory (fixed)
+   - Ratings (1-5 stars) stored in localStorage anonymously
+   - Buy modal -> generate product code, copy, QR shown on main page
+   - Proceed to form -> saves previous page in sessionStorage so form Back returns
+   - Video on main page: replace src in index.html (assets/payment-demo.mp4 or YouTube iframe)
+*/
+
+/* ========== CONFIG - EDIT HERE ========== */
 const CONFIG = {
-  SHOP_NAME: 'digistore',
-  CONTACT_NUMBER: '+91-9876543210',
-  UPI_ID: 'your-upi@upi', // replace with real UPI
-  GOOGLE_FORM_EMBED: 'https://docs.google.com/forms/d/e/1FAIpQLScFHxcYQoP6nrLCiNKva0_bYHoeWqBPi9tc_NzkHEsyq8ijuQ/viewform?embedded=true',
-  SOCIAL: { instagram: '#', telegram: '#', twitter: '#' }
+  CONTACT_NUMBER: '+91-9876543210',         // change your contact number here
+  UPI_ID: 'suchiangsanki3@okaxis',                   // replace with your actual UPI ID (used to generate QR on main page)
+  FORM_PAGE: 'form.html'                    // form page (embedded Google Form); keep as provided unless you want a direct external URL
 };
+/* ========================================== */
 
-// NAV STACK
-const NAV_STACK = [];
+/* quick helpers */
+const $ = id => document.getElementById(id);
+const escapeHtml = s => (s+'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
 
-// ELEMENTS
-const categoriesBar = document.getElementById('categories-bar');
-const categoryGrid = document.getElementById('category-grid');
-const subcatWrap = document.getElementById('subcat-wrap');
-const productGrid = document.getElementById('product-grid');
-const productPanel = document.getElementById('product-panel');
-const goBackBtn = document.getElementById('go-back');
-const searchInput = document.getElementById('search');
-const searchSuggestions = document.getElementById('search-suggestions');
-const modalBackdrop = document.getElementById('modal-backdrop');
-const modalUpi = document.getElementById('modal-upi');
-const qrWrap = document.getElementById('qr-wrap');
-const googleForm = document.getElementById('google-form');
-const closeModalBtn = document.getElementById('close-modal');
-const iPaidBtn = document.getElementById('i-paid');
-const afterConfirm = document.getElementById('after-confirm');
-const noResults = document.getElementById('no-results');
+/* ========== PRODUCTS - EDIT / ADD ITEMS HERE ==========
+Structure:
+PRODUCTS = {
+  "categorySlug": [
+    {
+      name: "Subcategory Name",
+      img: "URL for subcategory preview",
+      products: [
+        { id:"unique-id", title:"Product Title", img:"assets/xxx.jpg", short:"short desc", long:"long desc", price:"₹199" },
+        ...
+      ]
+    },
+    ...
+  ],
+  ...
+}
 
-// on ready
-document.addEventListener('DOMContentLoaded', () => {
-  // contact and social
-  const contactEl = document.getElementById('contact-number');
-  if(contactEl) contactEl.textContent = CONFIG.CONTACT_NUMBER;
-  ['ig','tg','tw'].forEach(id=> { const el=document.getElementById(id); if(el) el.href = CONFIG.SOCIAL[id] || '#'; });
-  const yearEl = document.getElementById('year'); if(yearEl) yearEl.textContent = new Date().getFullYear();
-
-  renderCategoriesBar();
-  renderCategories();
-  attachUIHandlers();
-});
-
-// PRODUCTS (placeholders) - categories include a 'img' for the category thumbnail
+- To add a category: add a new key at top-level with array of subcategory objects.
+- To add a subcategory: push new object into the category array.
+- To add a product: append a product object into the subcategory's products array.
+- Ensure JSON syntax (commas/braces) is valid.
+====================================================== */
 const PRODUCTS = {
   "ebooks": [
-    { name: "Science Fiction", img: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=900&q=60", products: [
-        { id:"sf1", title:"Galactic Odyssey", short:"A thrilling space adventure", long:"Full description of Galactic Odyssey — interstellar travel, vivid worldbuilding, and a fast-paced hero's journey.", price:"₹199", img:"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=900&q=60" },
-        { id:"sf2", title:"Starship Legacy", short:"Epic interstellar saga", long:"Family legacy across stars with political intrigue.", price:"₹199", img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=60" },
-        { id:"sf3", title:"Cosmic Rebels", short:"Rebels in distant galaxies", long:"Rebellion, friendship and the cost of freedom.", price:"₹199", img:"https://images.unsplash.com/photo-1455344898480-7f0b50f3d0f0?auto=format&fit=crop&w=900&q=60" }
-    ]},
-    { name: "Mystery", img: "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=900&q=60", products: [
-        { id:"m1", title:"The Hidden Key", short:"Secrets of the mansion", long:"An atmospheric whodunit with twists and a surprising reveal.", price:"₹199", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?auto=format&fit=crop&w=900&q=60" },
-        { id:"m2", title:"Midnight Clues", short:"Detective suspense", long:"Classic detective narrative updated.", price:"₹199", img:"https://images.unsplash.com/photo-1516912482560-80ebf46f3b1f?auto=format&fit=crop&w=900&q=60" },
-        { id:"m3", title:"Whispered Lies", short:"Thrilling mystery", long:"Secrets and lies that unravel the town's history.", price:"₹199", img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=60" }
-    ]},
-    { name: "Romance", img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=60", products: [
-        { id:"r1", title:"Love in Paris", short:"Romance set in Paris", long:"Hearts meet in the city of light — a tender, cinematic romance.", price:"₹149", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=60" },
-        { id:"r2", title:"Hearts Collide", short:"Heartfelt romance", long:"A second-chance romance that explores forgiveness and growth.", price:"₹149", img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=60" },
-        { id:"r3", title:"Summer of Love", short:"Warm beach romance", long:"Nostalgic seaside romance that warms the heart.", price:"₹149", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=60" }
-    ]},
-    { name: "Children", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=60", products: [
-        { id:"c1", title:"Adventures of Timmy", short:"Fun kids story", long:"Playful characters and gentle lessons for early readers.", price:"₹99", img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=60" }
-    ]},
-    { name: "Mental & Psychological", img: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=60", products: [
-        { id:"mth1", title:"Mind Mastery", short:"Mental wellness guide", long:"Practical exercises to build calm and focus.", price:"₹199", img:"https://images.unsplash.com/photo-1509099836639-18ba5f10b3b2?auto=format&fit=crop&w=900&q=60" }
-    ]}
+    {
+      name: "Mind & Psychology / Self-Help",
+      img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-MP-01", title:"Overcoming Imposter Syndrome", img:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop", short:"Tools to rebuild confidence", long:"A practical guide to recognise and overcome feelings of fraudulence, with exercises and reflections.", price:"₹199" },
+        { id:"EB-MP-02", title:"Ultimate Guide Towards Emotional Control", img:"https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop", short:"Emotional regulation strategies", long:"Step-by-step methods for managing strong emotions and building emotional resilience.", price:"₹199" },
+        { id:"EB-MP-03", title:"Anxious but Awesome", img:"https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop", short:"Practical anxiety coping methods", long:"Short strategies to manage anxiety in daily life with simple practices.", price:"₹149" },
+        { id:"EB-MP-04", title:"The 5-minute Stress Solution", img:"https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop", short:"Quick stress relief hacks", long:"Micro-practices for instant calm throughout your day.", price:"₹99" },
+        { id:"EB-MP-05", title:"The Anxiety First-Aid Kit", img:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=1200&auto=format&fit=crop", short:"Emergency tools for panic", long:"A concise kit of steps to follow when anxiety spikes or panic sets in.", price:"₹129" },
+        { id:"EB-MP-06", title:"Mindset Shift for Abundance", img:"https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop", short:"Abundance mindset techniques", long:"Exercises to reshape limiting beliefs and invite abundance into your life.", price:"₹179" }
+      ]
+    },
+    {
+      name: "Business & Productivity",
+      img: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-BP-01", title:"Personal Brand Blueprint", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Build & grow your brand", long:"A roadmap for positioning yourself and creating authentic brand assets.", price:"₹249" },
+        { id:"EB-BP-02", title:"Time Audit & Life Mapping Guide", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Track time & reclaim focus", long:"Work through time audits, priorities, and weekly mapping to boost productivity.", price:"₹149" },
+        { id:"EB-BP-03", title:"The Art of Deep Work", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Focus & output techniques", long:"Methods and rituals to achieve deep, distraction-free work.", price:"₹199" },
+        { id:"EB-BP-04", title:"Passive Income Playbook for Beginners", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Start passive revenue streams", long:"Intro to practical passive income strategies for creators.", price:"₹199" },
+        { id:"EB-BP-05", title:"Scaling Your Freelance Business", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Grow your freelance business", long:"Operations, pricing and systems for scaling freelancers into agencies.", price:"₹299" }
+      ]
+    },
+    {
+      name: "Relationships & Communication",
+      img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-RC-01", title:"Personal Growth Within the Partnership", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Grow while in relationship", long:"A guide to individual and mutual growth inside partnerships.", price:"₹169" },
+        { id:"EB-RC-02", title:"Communication Mastery", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Communicate with clarity", long:"Tools to express needs, listen deeply, and resolve conflict.", price:"₹149" },
+        { id:"EB-RC-03", title:"Building a Shared Life and Managing Conflict", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Rituals & conflict tools", long:"Practical steps for building systems in shared lives.", price:"₹149" },
+        { id:"EB-RC-04", title:"Strengthening Communication and Connection", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Deepen intimacy", long:"Exercises and prompts to increase connection.", price:"₹129" }
+      ]
+    },
+    {
+      name: "Health & Wellness",
+      img: "https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-HW-01", title:"Functional Food for Pregnancy", img:"https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop", short:"Nutrition guide", long:"Nutrition and functional foods tailored for pregnancy.", price:"₹199" },
+        { id:"EB-HW-02", title:"Pelvic Power", img:"https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop", short:"Strength & rehab", long:"Exercises and guides for pelvic health.", price:"₹149" }
+      ]
+    },
+    {
+      name: "Science Fiction",
+      img: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-SF-01", title:"Last Human Download", img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop", short:"A lone AI's last act", long:"Sci-fi narrative about identity & data.", price:"₹199" }
+      ]
+    },
+    {
+      name: "Mystery / Thriller",
+      img: "https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-MY-01", title:"The Algorithm Detective", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop", short:"Tech noir mystery", long:"A detective story about algorithmic bias.", price:"₹199" },
+        { id:"EB-MY-02", title:"Echoes of the Forgotten Town", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop", short:"Atmospheric historical mystery", long:"A small town with big secrets.", price:"₹179" },
+        { id:"EB-MY-03", title:"The Second Chance Promise", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop", short:"Thriller or drama", long:"A story of redemption and danger.", price:"₹179" }
+      ]
+    },
+    {
+      name: "Children / Young Readers",
+      img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
+      products: [
+        { id:"EB-CH-01", title:"The Little Kitchen Explorer", img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop", short:"Interactive learning for kids", long:"A playful book encouraging kitchen experiments for children.", price:"₹129" }
+      ]
+    }
   ],
 
+  /* OTHER categories (you asked to auto-fill others) - sample products added */
   "cheats": [
-    { name: "Design", img:"https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"ch1", title:"Color Psychology Cheat Sheet", short:"Colors & meaning", long:"Quick color reference for designers.", price:"₹49", img:"https://images.unsplash.com/photo-1520975917837-0c8d74f3f6f5?auto=format&fit=crop&w=900&q=60" },
-      { id:"ch2", title:"Typography Cheatsheet", short:"Font pairing guide", long:"Quick guide to pairing fonts and sizes.", price:"₹49", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=60" }
+    { name:"Design Cheats", img:"https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop", products:[
+      { id:"CS-DG-01", title:"Color Psychology Cheat Sheet", img:"https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop", short:"Colors & meanings", long:"Quick cheat sheet on color usage for branding.", price:"₹49" }
     ]},
-    { name: "Marketing", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"ch3", title:"Social Media Cheatsheet", short:"Post templates", long:"Prompts and templates for social media posts.", price:"₹49", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60" },
-      { id:"ch4", title:"Email Marketing Cheatsheet", short:"Subject & flows", long:"High-converting email templates and subjects.", price:"₹49", img:"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=60" }
+    { name:"Marketing Cheats", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop", products:[
+      { id:"CS-MK-01", title:"Social Media Cheatsheet", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop", short:"Post templates & captions", long:"Fast actionable prompts and posting schedule.", price:"₹79" }
     ]}
   ],
 
-  "wall":[
-    { name: "Motivational Posters", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"w1", title:"Dream Big", short:"Motivational poster", long:"High-resolution printable poster.", price:"₹99", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=900&q=60" },
-      { id:"w2", title:"Keep Going", short:"Encouragement poster", long:"Affirmation art for workspace.", price:"₹99", img:"https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?auto=format&fit=crop&w=900&q=60" }
+  "wall": [
+    { name:"Affirmation Posters", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1200&auto=format&fit=crop", products:[
+      { id:"WA-01", title:"Dream Big Poster", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1200&auto=format&fit=crop", short:"Motivational poster", long:"High-resolution poster with positive affirmation.", price:"₹99" }
     ]}
   ],
 
-  "stickers":[
-    { name: "Planner Stickers", img:"https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"s1", title:"Cute Planner Pack", short:"Planner icons", long:"PNG & SVG sticker pack for planners.", price:"₹49", img:"https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=900&q=60" },
-      { id:"s2", title:"Motivational Stickers", short:"Quote stickers", long:"Printable sticker sheet of motivational quotes.", price:"₹49", img:"https://images.unsplash.com/photo-1520975917837-0c8d74f3f6f5?auto=format&fit=crop&w=900&q=60" }
+  "stickers": [
+    { name:"Planner Stickers", img:"https://images.unsplash.com/photo-1532634896-26909d0d0c43?q=80&w=1200&auto=format&fit=crop", products:[
+      { id:"ST-01", title:"Cute Planner Pack", img:"https://images.unsplash.com/photo-1532634896-26909d0d0c43?q=80&w=1200&auto=format&fit=crop", short:"Planner icons", long:"Digital planner stickers for productivity.", price:"₹49" }
     ]}
   ],
 
-  "ai":[
-    { name:"Content Prompts", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"ai1", title:"Blog Prompts Pack", short:"100 blog prompts", long:"Proven blog ideas & outlines.", price:"₹149", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60" },
-      { id:"ai2", title:"Social Media Prompts", short:"Post prompts", long:"Captions and carousel prompts.", price:"₹149", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60" }
+  "ai": [
+    { name:"Prompt Packs", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop", products:[
+      { id:"AI-01", title:"Content Prompts Pack", img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop", short:"100 content prompts", long:"Prompts for blogs, captions and emails.", price:"₹149" }
     ]}
   ],
 
-  "freelancer":[
-    { name:"Starter Packs", img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"f1", title:"Freelancer Design Kit", short:"Templates & contracts", long:"Starter templates for freelancers.", price:"₹299", img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=60" }
-    ]}
-  ],
-
-  "sidehustle":[
-    { name:"Kits", img:"https://images.unsplash.com/photo-1524635962361-8b3b7b8b0b40?auto=format&fit=crop&w=900&q=60", products:[
-      { id:"sh1", title:"Ebook Creation Kit", short:"Templates + guide", long:"Write & publish an ebook fast with templates.", price:"₹199", img:"https://images.unsplash.com/photo-1524635962361-8b3b7b8b0b40?auto=format&fit=crop&w=900&q=60" }
+  "freelancer": [
+    { name:"Starter Kits", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop", products:[
+      { id:"FR-01", title:"Freelancer Starter Pack", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop", short:"Templates & contracts", long:"Contracts, briefs and templates to start freelancing.", price:"₹299" }
     ]}
   ]
 };
+/* ==================================================== */
 
-// UI functions
+/* ========== DOM refs ========== */
+const categoriesBar = $('categories-bar');
+const subcatWrap = $('subcat-wrap');
+const categoryGrid = $('category-grid');
+const productGrid = $('product-grid');
+const noResults = $('no-results');
+const productPanel = $('product-panel');
+const buyModal = $('buyModal');
+const buyModalContent = $('buyModalContent');
+const buyModalClose = $('buyModalClose');
+const searchInput = $('search');
+const searchSuggestions = $('search-suggestions');
+const backAllWrap = $('back-all-wrap');
+const backAllBtn = $('back-all');
 
+/* ========== INIT ========== */
+document.addEventListener('DOMContentLoaded', () => {
+  $('contact-number').textContent = CONFIG.CONTACT_NUMBER;
+  $('year').textContent = new Date().getFullYear();
+  // Generate main page QR from CONFIG.UPI_ID
+  if(window.QRCode && CONFIG.UPI_ID){
+    const canvas = $('mainPageQR');
+    QRCode.toCanvas(canvas, CONFIG.UPI_ID, { width: 180 }, (err)=>{ if(err) console.error('QR err',err); });
+    $('upi-id-text').textContent = CONFIG.UPI_ID;
+  }
+
+  renderCategoriesBar();
+  renderCategoriesGrid();
+  setupHandlers();
+
+  // modal interactions
+  buyModalClose?.addEventListener('click', closeBuyModal);
+  buyModal?.addEventListener('click', (e)=> { if(e.target === buyModal) closeBuyModal(); });
+});
+
+/* ========== RENDER CATEGORIES BAR ========== */
 function renderCategoriesBar(){
-  if(!categoriesBar) return;
   categoriesBar.innerHTML = '';
-  Object.keys(PRODUCTS).forEach(catKey => {
+  Object.keys(PRODUCTS).forEach((cat, idx) => {
     const btn = document.createElement('button');
-    btn.textContent = catKey;
-    btn.dataset.cat = catKey;
+    btn.className = 'category-item' + (idx % 2 === 0 ? ' alt' : '');
+    btn.textContent = humanizeCat(cat);
+    btn.dataset.cat = cat;
     btn.addEventListener('click', ()=> {
-      if(currentState().type !== 'root') NAV_STACK.push(currentState());
-      selectCategory(catKey);
+      // Show subcategories and all products in that category (merged)
+      renderSubcategories(cat);
+      renderProductsForCategory(cat);
+      backAllWrap.style.display = '';
+      productGrid.scrollIntoView({behavior:'smooth', block:'start'});
     });
     categoriesBar.appendChild(btn);
   });
 }
 
-function currentState(){
-  if (productPanel && productPanel.classList.contains('open')) return { type:'product' };
-  if (selectedSubcat) return { type:'subcategory', cat:selectedCategory, sub:selectedSubcat };
-  if (selectedCategory) return { type:'category', cat:selectedCategory };
-  return { type:'root' };
-}
-
-let selectedCategory = null;
-let selectedSubcat = null;
-
-function renderCategories(){
-  if(!categoryGrid) return;
+/* ========== RENDER MAIN CATEGORIES GRID ========== */
+function renderCategoriesGrid(){
   categoryGrid.innerHTML = '';
-  productGrid.style.display = 'none';
-  categoryGrid.style.display = '';
-  noResults.style.display = 'none';
-  Object.keys(PRODUCTS).forEach(catKey => {
-    const el = document.createElement('div');
-    el.className = 'card';
-    // use category's thumbnail (first subcategory image or explicit img)
-    const catObj = PRODUCTS[catKey];
-    let catImg = '';
-    if(Array.isArray(catObj) && catObj[0]){
-      catImg = catObj[0].img || catObj[0].products && catObj[0].products[0] && catObj[0].products[0].img || '';
-    }
-    el.innerHTML = `
-      <img src="${catImg}" alt="${escapeHtml(catKey)}">
-      <h3>${escapeHtml(catKey)}</h3>
-      <p class="muted">Explore ${escapeHtml(catKey)}</p>
-    `;
-    el.addEventListener('click', () => {
-      NAV_STACK.push({ type:'root' });
-      selectCategory(catKey);
+  Object.keys(PRODUCTS).forEach(cat => {
+    const card = document.createElement('div'); card.className = 'card';
+    const sub = PRODUCTS[cat][0];
+    const bg = sub && sub.img ? `background-image:url(${sub.img})` : 'background:linear-gradient(90deg,#2a0054,#ff2d95)';
+    card.innerHTML = `<div class="card-hero" style="${bg}"></div><div class="card-content"><h3>${escapeHtml(humanizeCat(cat))}</h3><p class="muted">Explore ${escapeHtml(humanizeCat(cat))}</p></div>`;
+    card.addEventListener('click', ()=> {
+      renderSubcategories(cat);
+      renderProductsForCategory(cat);
+      backAllWrap.style.display = '';
+      productGrid.scrollIntoView({ behavior:'smooth', block:'start' });
     });
-    categoryGrid.appendChild(el);
+    categoryGrid.appendChild(card);
   });
-  updateGoBack();
-  highlightCategoryButton(null);
 }
 
-function selectCategory(catKey){
-  selectedCategory = catKey;
-  selectedSubcat = null;
-  categoryGrid.style.display = 'none';
-  productGrid.style.display = '';
-  renderSubcategories(catKey);
-  clearProducts();
-  updateGoBack();
-  highlightCategoryButton(catKey);
-}
-
-function renderSubcategories(catKey){
-  if(!subcatWrap) return;
+/* ========== RENDER SUBCATEGORIES ========== */
+function renderSubcategories(categorySlug){
   subcatWrap.innerHTML = '';
-  const arr = PRODUCTS[catKey] || [];
-  arr.forEach(sc => {
-    const b = document.createElement('button');
-    b.textContent = sc.name || sc.name;
-    b.addEventListener('click', () => {
-      NAV_STACK.push({ type:'category', cat:selectedCategory });
-      selectSubcategory(sc.name);
+  const subs = PRODUCTS[categorySlug] || [];
+  subs.forEach(sc => {
+    const btn = document.createElement('button');
+    btn.className = 'category-item';
+    btn.textContent = sc.name;
+    btn.addEventListener('click', ()=> {
+      // ********** IMPORTANT: this shows ONLY the products IN THIS SUBCATEGORY **********
+      renderProductsForSubcategory(categorySlug, sc.name);
+      backAllWrap.style.display = '';
+      productGrid.scrollIntoView({ behavior:'smooth', block:'start' });
     });
-    subcatWrap.appendChild(b);
+    subcatWrap.appendChild(btn);
   });
 }
 
-function selectSubcategory(subName){
-  selectedSubcat = subName;
-  renderProducts(selectedCategory, subName);
-  updateGoBack();
-  Array.from(subcatWrap.children).forEach(btn => btn.classList.toggle('active', btn.textContent===subName));
+/* ========== SHOW PRODUCTS: category(all subcats merged) ========== */
+function renderProductsForCategory(categorySlug){
+  productGrid.style.display = '';
+  categoryGrid.style.display = 'none';
+  productGrid.innerHTML = '';
+  const subs = PRODUCTS[categorySlug] || [];
+  const allProducts = [];
+  subs.forEach(sc => sc.products.forEach(p => allProducts.push({...p, __cat: categorySlug, __sub: sc.name})));
+  if(allProducts.length === 0){ noResults.style.display = ''; return; }
+  noResults.style.display = 'none';
+  allProducts.forEach(p => productGrid.appendChild(createProductCard(p)));
 }
 
-function renderProducts(cat, sub){
-  if(!productGrid) return;
+/* ========== SHOW PRODUCTS: subcategory ONLY (FIXED) ========== */
+function renderProductsForSubcategory(categorySlug, subName){
+  productGrid.style.display = '';
+  categoryGrid.style.display = 'none';
   productGrid.innerHTML = '';
-  const subs = PRODUCTS[cat] || [];
+  const subs = PRODUCTS[categorySlug] || [];
   let found = false;
   subs.forEach(sc => {
-    if (sc.name === sub) {
-      sc.products.forEach(p => {
-        found = true;
-        const card = document.createElement('div');
-        card.className = 'card';
-        const pImg = p.img || sc.img || '';
-        card.innerHTML = `<img src="${pImg}" alt="${escapeHtml(p.title)}"><h3>${escapeHtml(p.title)}</h3><p class="muted">${escapeHtml(p.short)}</p>`;
-        card.addEventListener('click', () => {
-          NAV_STACK.push({ type:'subcategory', cat:selectedCategory, sub:selectedSubcat });
-          openPanel(p);
-        });
-        productGrid.appendChild(card);
+    if(sc.name === subName){
+      found = true;
+      sc.products.forEach(p0 => {
+        const p = {...p0, __cat: categorySlug, __sub: sc.name};
+        productGrid.appendChild(createProductCard(p));
       });
     }
   });
-  noResults.style.display = found ? 'none' : '';
-  updateGoBack();
+  if(!found) noResults.style.display = '';
+  else noResults.style.display = 'none';
 }
 
-function clearProducts(){ if(productGrid) productGrid.innerHTML = ''; }
+/* ========== CREATE PRODUCT CARD ========== */
+function createProductCard(p){
+  const card = document.createElement('div'); card.className = 'card';
+  const hero = document.createElement('div'); hero.className = 'card-hero'; hero.style.backgroundImage = `url(${p.img})`;
+  const content = document.createElement('div'); content.className = 'card-content';
+  content.innerHTML = `<h3>${escapeHtml(p.title)}</h3><p class="muted">${escapeHtml(p.short)}</p>`;
+  const ratingEl = renderStars(p.id);
+  const buyBtn = document.createElement('button'); buyBtn.className = 'btn-ghost'; buyBtn.textContent = 'Buy';
+  buyBtn.addEventListener('click', (ev)=> { ev.stopPropagation(); openBuyModal(Object.assign({}, p)); });
+  content.appendChild(ratingEl);
+  content.appendChild(buyBtn);
+  card.appendChild(hero); card.appendChild(content);
+  card.addEventListener('click', ()=> openProductPanel(p));
+  return card;
+}
 
-function openPanel(p){
-  if(!productPanel) return;
+/* ========== PRODUCT PANEL ========== */
+function openProductPanel(p){
   productPanel.innerHTML = '';
-  const header = document.createElement('div'); header.className='product-detail-header';
-  const backBtn = document.createElement('button'); backBtn.id='panel-back'; backBtn.className='btn-ghost'; backBtn.textContent='← Go Back';
-  backBtn.addEventListener('click', () => {
-    productPanel.classList.remove('open');
-    if (NAV_STACK.length && NAV_STACK[NAV_STACK.length-1].type==='product') NAV_STACK.pop();
-    updateGoBack();
-  });
-  header.appendChild(backBtn);
-  const title = document.createElement('h2'); title.textContent = p.title; title.style.marginLeft='8px'; title.style.flex='1';
-  header.appendChild(title);
-
-  const img = document.createElement('img'); img.src = p.img; img.alt = p.title; img.style.width='100%'; img.style.borderRadius='10px'; img.style.marginTop='12px';
-
-  const longDesc = document.createElement('p'); longDesc.textContent = p.long; longDesc.style.marginTop='12px'; longDesc.style.color='rgba(238,246,255,0.8)';
-
-  const price = document.createElement('p'); price.innerHTML = `<strong>Price: ${p.price}</strong>`;
-
-  const buyBtn = document.createElement('button'); buyBtn.className='btn-primary'; buyBtn.textContent='Buy'; buyBtn.addEventListener('click', ()=> {
-    NAV_STACK.push({ type:'product', value:p });
-    openModal(p.id);
-  });
-
-  productPanel.appendChild(header);
-  productPanel.appendChild(img);
-  productPanel.appendChild(longDesc);
-  productPanel.appendChild(price);
-  productPanel.appendChild(buyBtn);
-
+  productPanel.style.display = 'block';
   productPanel.classList.add('open');
-  updateGoBack();
+  productPanel.innerHTML = `
+    <div style="padding:14px;color:#fff">
+      <button id="panel-back" class="btn-ghost" style="margin-bottom:12px">← Go Back</button>
+      <div style="background-image:url(${p.img});background-size:cover;background-position:center;height:180px;border-radius:10px"></div>
+      <h2 style="margin-top:12px">${escapeHtml(p.title)}</h2>
+      <div class="muted">${escapeHtml(humanizeCat(p.__cat))} › ${escapeHtml(p.__sub)}</div>
+      <p style="margin-top:8px;color:#ddd">${escapeHtml(p.long)}</p>
+      <p style="margin-top:10px;font-weight:700">${escapeHtml(p.price)}</p>
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <button id="panel-buy" class="btn-primary">Buy</button>
+        <div id="panel-stars" class="stars"></div>
+      </div>
+    </div>
+  `;
+  const panelStars = renderStars(p.id);
+  $('panel-stars')?.appendChild(panelStars);
+  $('panel-back').addEventListener('click', ()=> { productPanel.classList.remove('open'); productPanel.style.display='none'; });
+  $('panel-buy').addEventListener('click', ()=> openBuyModal(p));
 }
 
-// --- Modal improvements: body lock without shifting
-function openModal(productId){
-  // lock scroll by adding class to body; CSS prevents shift by overflow-x: hidden in root
-  document.body.classList.add('modal-open'); // if you want additional effects, style .modal-open in CSS
-  modalBackdrop.style.display = 'flex';
-  modalBackdrop.setAttribute('aria-hidden','false');
-  modalUpi.textContent = CONFIG.UPI_ID;
-  googleForm.src = CONFIG.GOOGLE_FORM_EMBED;
-  // draw large QR
-  qrWrap.innerHTML = '';
-  QRCode.toCanvas(qrWrap, CONFIG.UPI_ID, { width:220 }, function(err){
-    if(err) console.error(err);
+/* ========== RATINGS (localStorage) ========== */
+const RATINGS_KEY = 'digistore_ratings_v1';
+function readRatings(){ const raw = localStorage.getItem(RATINGS_KEY); return raw ? JSON.parse(raw) : {}; }
+function writeRatings(obj){ localStorage.setItem(RATINGS_KEY, JSON.stringify(obj)); }
+function getRating(productId){ const obj = readRatings(); return obj[productId] || { sum:0, count:0 }; }
+function addRating(productId, score){ const obj = readRatings(); const cur = obj[productId] || { sum:0, count:0 }; cur.sum += score; cur.count += 1; obj[productId] = cur; writeRatings(obj); }
+
+/* Render clickable 1-5 star control */
+function renderStars(productId){
+  const container = document.createElement('div'); container.className = 'stars';
+  const data = getRating(productId);
+  const avg = data.count ? (data.sum / data.count) : 0;
+  const starRow = document.createElement('div'); starRow.style.display='flex';
+  for(let i=1;i<=5;i++){
+    const s = document.createElement('span'); s.className = 'star'; s.innerHTML = '★';
+    if(i <= Math.round(avg)) s.classList.add('active');
+    s.addEventListener('mouseover', ()=> {
+      const all = starRow.querySelectorAll('.star'); all.forEach((st, idx)=> st.classList.toggle('hover', idx < i));
+    });
+    s.addEventListener('mouseout', ()=> {
+      const all = starRow.querySelectorAll('.star'); all.forEach(st=> st.classList.remove('hover'));
+    });
+    s.addEventListener('click', ()=> {
+      addRating(productId, i);
+      const newData = getRating(productId); const newAvg = newData.count ? (newData.sum / newData.count) : 0;
+      const all = starRow.querySelectorAll('.star'); all.forEach((st, idx)=> st.classList.toggle('active', idx < Math.round(newAvg)));
+      if(container.querySelector('.rating-value')) container.querySelector('.rating-value').textContent = (newAvg.toFixed(1)) + ' / 5';
+    });
+    starRow.appendChild(s);
+  }
+  const ratingValue = document.createElement('div'); ratingValue.className = 'rating-value';
+  ratingValue.textContent = data.count ? ( (data.sum / data.count).toFixed(1) + ' / 5') : 'No ratings';
+  container.appendChild(starRow); container.appendChild(ratingValue);
+  return container;
+}
+
+/* ========== BUY MODAL ========== */
+function shortCode(catSlug, subName, prodTitle){
+  const cat = (catSlug||'').replace(/[^A-Za-z]/g,'').substring(0,2).toUpperCase();
+  const sub = (subName||'').replace(/[^A-Za-z]/g,'').substring(0,2).toUpperCase();
+  const p = (prodTitle||'').replace(/[^A-Za-z]/g,'').substring(0,2).toUpperCase();
+  return `${cat} - ${sub} - ${p}`;
+}
+
+function openBuyModal(product){
+  const code = shortCode(product.__cat, product.__sub, product.title);
+  buyModalContent.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:12px;color:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:700;font-size:18px">${escapeHtml(product.title)}</div>
+          <div class="muted" style="color:rgba(255,255,255,0.65)">${escapeHtml(humanizeCat(product.__cat))} › ${escapeHtml(product.__sub)}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="muted" style="font-size:12px">Price</div>
+          <div style="font-weight:800;font-size:16px">${escapeHtml(product.price)}</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px;font-weight:700">Product Code</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div id="productCodeText" class="code-box">${escapeHtml(code)}</div>
+          <button id="copyCodeBtn" class="copy-btn">Copy Code</button>
+          <button id="openFormBtn" class="btn-ghost">Proceed to Form</button>
+        </div>
+      </div>
+
+      <div style="color:#ddd">After payment (UPI), paste the copied product code into the confirmation form and submit.</div>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <div>
+          <div class="muted" style="font-size:12px">UPI ID</div>
+          <div style="font-weight:800">${escapeHtml(CONFIG.UPI_ID)}</div>
+        </div>
+        <div id="buyModalQR"></div>
+      </div>
+    </div>
+  `;
+  buyModal.setAttribute('aria-hidden','false');
+  buyModal.style.display = 'flex';
+
+  // generate QR in modal as well
+  const qrWrap = $('buyModalQR'); qrWrap.innerHTML = '';
+  if(window.QRCode && CONFIG.UPI_ID) QRCode.toCanvas(qrWrap, CONFIG.UPI_ID, { width:120 }, ()=>{});
+
+  // copy
+  $('copyCodeBtn').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(code).then(()=> {
+      const btn = $('copyCodeBtn'); btn.textContent = 'Copied ✓';
+      setTimeout(()=> btn.textContent = 'Copy Code', 1400);
+    }).catch(()=> alert('Copy failed — select and copy manually.'));
   });
-  // ensure the modal-right (iframe) is scrolled to top
-  const mr = modalBackdrop.querySelector('.modal-right');
-  if(mr) mr.scrollTop = 0;
-}
 
-function closeModal(){
-  document.body.classList.remove('modal-open');
-  modalBackdrop.style.display = 'none';
-  modalBackdrop.setAttribute('aria-hidden','true');
-  afterConfirm.style.display = 'none';
-  googleForm.src = '';
-}
-
-// update go back UI
-function updateGoBack(){
-  if(!goBackBtn) return;
-  goBackBtn.style.display = NAV_STACK.length > 0 ? '' : 'none';
-}
-
-// back button main
-if(goBackBtn){
-  goBackBtn.addEventListener('click', () => {
-    const last = NAV_STACK.pop();
-    if(!last){
-      selectedCategory = null; selectedSubcat = null; renderCategories(); return;
-    }
-    switch(last.type){
-      case 'root':
-        selectedCategory = null; selectedSubcat = null; productPanel.classList.remove('open'); renderCategories(); break;
-      case 'category':
-        selectedCategory = last.cat; selectedSubcat = null; renderSubcategories(selectedCategory); clearProducts(); break;
-      case 'subcategory':
-        selectedCategory = last.cat; selectedSubcat = last.sub; renderSubcategories(selectedCategory); renderProducts(selectedCategory, selectedSubcat); break;
-      case 'product':
-        productPanel.classList.remove('open'); break;
-    }
-    updateGoBack();
+  // proceed to form (same tab so Back returns here)
+  $('openFormBtn').addEventListener('click', ()=> {
+    sessionStorage.setItem('digistore_prev', location.href);
+    const qs = new URLSearchParams({ product: product.id || '', title: product.title || '' }).toString();
+    location.href = CONFIG.FORM_PAGE + '?' + qs;
   });
 }
 
-// search
+/* close buy modal */
+$('buyModalClose')?.addEventListener('click', ()=> { buyModal.setAttribute('aria-hidden','true'); buyModal.style.display='none'; });
+
+/* ========== SEARCH ========== */
 if(searchInput){
-  searchInput.addEventListener('input', ()=>{
+  searchInput.addEventListener('input', ()=> {
     const q = searchInput.value.trim().toLowerCase();
     searchSuggestions.innerHTML = '';
-    if(!q){ searchSuggestions.style.display = 'none'; return; }
+    if(!q){ searchSuggestions.style.display='none'; return; }
     const matches = [];
     Object.keys(PRODUCTS).forEach(cat=>{
       PRODUCTS[cat].forEach(sc=>{
         sc.products.forEach(p=>{
-          if(p.title.toLowerCase().includes(q) || p.short.toLowerCase().includes(q) || p.long.toLowerCase().includes(q)){
-            matches.push({p,cat,sub:sc.name});
-          }
+          if((p.title||'').toLowerCase().includes(q) || (p.short||'').toLowerCase().includes(q)) matches.push({p,cat,sub:sc.name});
         });
       });
     });
-    if(matches.length===0){ searchSuggestions.style.display='none'; return; }
-    matches.slice(0,12).forEach(m=>{
-      const div = document.createElement('div');
-      div.innerHTML = `<strong>${escapeHtml(m.p.title)}</strong> <div class="muted" style="font-size:12px">${escapeHtml(m.cat)} › ${escapeHtml(m.sub)}</div>`;
-      div.addEventListener('click', ()=>{
-        NAV_STACK.push({ type:'root' });
-        selectCategory(m.cat);
-        NAV_STACK.push({ type:'category', cat:m.cat });
-        selectSubcategory(m.sub);
-        NAV_STACK.push({ type:'subcategory', cat:m.cat, sub:m.sub });
-        openPanel(m.p);
-        searchSuggestions.style.display = 'none';
-        searchInput.value = '';
+    if(matches.length === 0){ searchSuggestions.style.display='none'; return; }
+    matches.slice(0,8).forEach(m=>{
+      const div = document.createElement('div'); div.style.padding='8px'; div.style.borderBottom='1px solid rgba(255,255,255,0.03)'; div.style.cursor='pointer';
+      div.innerHTML = `<strong>${escapeHtml(m.p.title)}</strong><div class="muted" style="font-size:12px">${escapeHtml(humanizeCat(m.cat))} › ${escapeHtml(m.sub)}</div>`;
+      div.addEventListener('click', ()=> {
+        renderSubcategories(m.cat);
+        renderProductsForSubcategory(m.cat, m.sub);
+        searchSuggestions.style.display='none';
+        productGrid.scrollIntoView({ behavior:'smooth', block:'start' });
       });
       searchSuggestions.appendChild(div);
     });
-    searchSuggestions.style.display = 'block';
+    searchSuggestions.style.display='block';
   });
 }
 
-// modal handlers
-if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-if(iPaidBtn) iPaidBtn.addEventListener('click', ()=> { afterConfirm.style.display = ''; });
-
-if(modalBackdrop){
-  modalBackdrop.addEventListener('click', (e)=>{ if(e.target === modalBackdrop) closeModal(); });
+/* ========== UTILS ========== */
+function humanizeCat(slug){
+  const mapping = { ebooks:'Ebooks', cheats:'Cheat Sheets', ai:'AI Prompt Packs', wall:'Printable Wall Art', stickers:'Digital Stickers', freelancer:'Freelancer Packs' };
+  return mapping[slug] || slug;
 }
 
-// helpers & attach
-function attachUIHandlers(){
-  // category bar active toggles
-  if(categoriesBar){
-    Array.from(categoriesBar.children).forEach(btn=>{
-      btn.addEventListener('click', ()=> highlightCategoryButton(btn.dataset.cat));
-    });
-  }
-  // footer product links
-  document.querySelectorAll('[data-scroll]').forEach(a=>{
-    a.addEventListener('click', (ev)=>{
-      ev.preventDefault();
-      const cat = a.dataset.scroll;
-      if(PRODUCTS[cat]){ NAV_STACK.push({ type:'root' }); selectCategory(cat); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    });
-  });
-
-  // click outside search suggestions to hide
-  document.addEventListener('click', (e)=>{
-    if(!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) searchSuggestions.style.display='none';
+/* ========== BACK TO ALL ========== */
+if(backAllBtn){
+  backAllBtn.addEventListener('click', ()=> {
+    categoryGrid.style.display = '';
+    productGrid.style.display = 'none';
+    subcatWrap.innerHTML = '';
+    backAllWrap.style.display = 'none';
+    window.scrollTo({ top: 0, behavior:'smooth' });
   });
 }
 
-function highlightCategoryButton(catKey){
-  if(!categoriesBar) return;
-  Array.from(categoriesBar.children).forEach(btn=> btn.classList.toggle('active', btn.dataset.cat === catKey));
+/* ========== CREATE PRODUCT CARD (used else where) ========== */
+function createProductCard(p){
+  const card = document.createElement('div'); card.className = 'card';
+  const hero = document.createElement('div'); hero.className = 'card-hero'; hero.style.backgroundImage = `url(${p.img})`;
+  const content = document.createElement('div'); content.className = 'card-content';
+  content.innerHTML = `<h3>${escapeHtml(p.title)}</h3><p class="muted">${escapeHtml(p.short)}</p>`;
+  const ratingEl = renderStars(p.id);
+  const buyBtn = document.createElement('button'); buyBtn.className = 'btn-ghost'; buyBtn.textContent = 'Buy';
+  buyBtn.addEventListener('click', (ev)=> { ev.stopPropagation(); openBuyModal(Object.assign({}, p)); });
+  content.appendChild(ratingEl);
+  content.appendChild(buyBtn);
+  card.appendChild(hero); card.appendChild(content);
+  card.addEventListener('click', ()=> openProductPanel(p));
+  return card;
 }
 
-function escapeHtml(s){ return (s+'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+/* ========== SETUP HANDLERS ========== */
+function setupHandlers(){
+  // hamburger opens drawer
+  $('hamburger')?.addEventListener('click', ()=> {
+    const md = document.getElementById('mobile-drawer');
+    if(md){ md.classList.toggle('open'); md.setAttribute('aria-hidden', !md.classList.contains('open')); }
+  });
+
+  // Render initial category grid already done
+  renderCategoriesGrid();
+}
+
+/* ========== END OF SCRIPT ========== */
+
+/* ========== QUICK EDIT NOTES ==========
+- To add categories/subcategories/products: update the PRODUCTS object near the top.
+- To change UPI: edit CONFIG.UPI_ID.
+- To change embedded Google Form: edit document.getElementById('google-embed').src in form.html (line is already set to your link).
+- To replace QR image on main page with a static image: replace <canvas id="mainPageQR"> with <img src="assets/your-qr.png"> in index.html and remove QR generation in DOMContentLoaded.
+- To change payment video: replace <video> src in index.html or switch to YouTube iframe there.
+================================================= */
 
 
