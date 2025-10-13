@@ -4,56 +4,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact — digistore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="page-gradient">
-  <header class="site-header about-header">
-    <div class="header-inner">
-      <a class="brand" href="index.html">
-        <div class="logo-wrap" aria-hidden>
-          <svg class="logo-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#6b8bff"/><text x="50%" y="55%" font-weight="700" font-size="42" fill="#fff" text-anchor="middle" dominant-baseline="middle">D</text></svg>
-        </div>
-        <div class="brand-text"><div class="brand-title">digistore</div><div class="brand-sub">digital products for creators</div></div>
-      </a>
-      <div class="header-actions"><nav class="top-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="privacy.html">Privacy</a></nav></div>
+<body>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
+        <div style="font-weight:700;color:#fff">digistore</div>
+      </div>
+      <div><a class="btn-ghost" href="index.html">← Home</a></div>
     </div>
   </header>
 
-  <main class="page about-page">
-    <div class="container">
-      <article class="content-card elevated">
-        <h1 class="big-title">Contact</h1>
-        <p>We'd love to hear from you. For support or custom requests, email us or use the quick form below.</p>
+  <main class="container" style="padding:28px 16px">
+    <article class="content-card">
+      <h1>Contact</h1>
+      <p>We'd love to hear from you. For support or custom requests, email us or use the quick form below.</p>
+      <h3>Email</h3>
+      <p><a class="muted" href="mailto:hello@digistore.example">hello@digistore.example</a></p>
 
-        <h3>Email</h3>
-        <p><a href="mailto:hello@digistore.example">hello@digistore.example</a></p>
-
-        <h3>Quick contact form</h3>
-        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_blank">
-          <label>
-            Your name<br/>
-            <input type="text" name="entry.123456" placeholder="Your name" />
-          </label>
-          <label style="display:block;margin-top:12px">
-            Message<br/>
-            <textarea name="entry.654321" rows="5" placeholder="How can we help?"></textarea>
-          </label>
-          <div style="margin-top:12px">
-            <button class="btn-primary" type="submit">Send message</button>
-          </div>
-        </form>
-
-        <p class="muted" style="margin-top:12px">This form is a stub that posts to Google Forms action. Replace the action with your own endpoint if needed.</p>
-      </article>
-    </div>
+      <h3>Quick contact form</h3>
+      <!-- Replace action with your Google Form direct POST link or other endpoint -->
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSeE58S_INbd6N_Pr21AkWtel4yVvEU3GqlUVM2bxcS9ipF_Wg/formResponse" method="POST" target="_blank">
+        <label>
+          Your name<br/>
+          <input type="text" name="entry.123456" placeholder="Your name" />
+        </label>
+        <label style="display:block;margin-top:12px">
+          Message<br/>
+          <textarea name="entry.654321" rows="5" placeholder="How can we help?"></textarea>
+        </label>
+        <div style="margin-top:12px">
+          <button class="btn-primary" type="submit">Send message</button>
+        </div>
+      </form>
+    </article>
   </main>
-
-  <footer class="site-footer about-footer">
-    <div class="footer-inner container">
-      <div>© <span id="year-contact"></span> digistore</div>
-    </div>
-  </footer>
-
-<script>document.getElementById('year-contact').textContent=new Date().getFullYear();</script>
 </body>
 </html>
