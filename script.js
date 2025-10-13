@@ -207,7 +207,7 @@ PRODUCTS = {
   "Ai Prompts": [
     {
       "name": "Visual & E-commerce AI Prompts",
-      "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_153230.png",
       "products": [
         {
           "id": "AI-VEP-01",
@@ -268,7 +268,7 @@ PRODUCTS = {
   "Printable wall posters": [
     {
       "name": "State of Mindfulness", // ADDED 'name' KEY HERE
-      "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+      "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_212123.png",
       "products": [
         {
           "id": "PW-AT-01",
