@@ -111,7 +111,9 @@ const PRODUCTS = {
 
   /* OTHER categories (you asked to auto-fill others) - sample products added */
   "cheats": [
-    { name:"Design Cheats", img:"https://github.com/suchdigitel/digistore/blob/a7d9f6b0127879a87a1ae9ee662227372dbbcca7/Images/IMG_20251013_143929.png", products:[
+    { name:"Design Cheats", 
+      img:"https://github.com/suchdigitel/digistore/blob/a7d9f6b0127879a87a1ae9ee662227372dbbcca7/Images/IMG_20251013_143929.png", 
+      products:[
       { id:"CS-DG-01", title:"Color Psychology Cheat Sheet", img:"https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop", short:"Colors & meanings", long:"Quick cheat sheet on color usage for branding.", price:"₹49" }
     ]},
     { name:"Marketing Cheats", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop", products:[
