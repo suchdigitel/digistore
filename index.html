@@ -3,29 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>digistore — home</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>digistore — Home</title>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- QR library & main JS -->
   <script defer src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <script defer src="script.js"></script>
 </head>
 <body>
+  <!-- HEADER -->
   <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="index.html" aria-label="digistore home">
+    <div class="header-inner container">
+      <a href="index.html" class="brand">
         <div class="logo-wrap" aria-hidden>
-          <!-- Vibrant D logo -->
-          <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="digistore logo">
+          <!-- Neon D logo -->
+          <svg viewBox="0 0 100 100" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="gradD" x1="0" x2="1">
-                <stop offset="0" stop-color="#6b8bff"/>
-                <stop offset="1" stop-color="#ff6bb3"/>
+              <linearGradient id="neonG" x1="0" x2="1">
+                <stop offset="0" stop-color="#8A2BE2"/>
+                <stop offset="0.5" stop-color="#FF2D95"/>
+                <stop offset="1" stop-color="#00E5FF"/>
               </linearGradient>
-              <filter id="lg" x="-50%" y="-50%" width="200%" height="200%">
-                <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.18"/>
-              </filter>
             </defs>
-            <circle cx="50" cy="50" r="44" fill="url(#gradD)" filter="url(#lg)"/>
-            <text x="50%" y="55%" font-family="Poppins, Inter, Arial" font-weight="700" font-size="42" fill="#fff" text-anchor="middle" dominant-baseline="middle">D</text>
+            <circle cx="50" cy="50" r="44" fill="url(#neonG)"></circle>
+            <text x="50%" y="55%" font-family="Poppins" font-weight="700" font-size="44" fill="#051225" text-anchor="middle" dominant-baseline="middle">D</text>
           </svg>
         </div>
         <div class="brand-text">
@@ -34,121 +38,109 @@
         </div>
       </a>
 
-      <div class="header-actions">
-        <nav class="top-links">
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-          <a href="privacy.html">Privacy</a>
-        </nav>
-        <div class="right-meta">
-          <div class="contact-txt">📞 <span id="contact-number">+91-XXXXXXXXXX</span></div>
-          <div class="socials">
-            <a id="ig" href="#" aria-label="Instagram">IG</a>
-            <a id="tg" href="#" aria-label="Telegram">TG</a>
-            <a id="tw" href="#" aria-label="Twitter">X</a>
-          </div>
-        </div>
+      <div class="right-head">
+        <!-- Contact number: change in script.js CONFIG if needed -->
+        <div class="contact">📞 <span id="contact-number">+91-XXXXXXXXXX</span></div>
+        <button id="hamburger" class="hamburger" aria-label="Open menu">☰</button>
       </div>
     </div>
 
-    <!-- sticky categories bar -->
-    <div class="categories-bar" id="categories-bar" aria-label="Categories"></div>
+    <!-- Category chips container (auto-wrap) -->
+    <div id="categories-bar" class="category-container container" aria-label="Categories"></div>
   </header>
 
-  <main class="page">
+  <!-- MAIN -->
+  <main>
     <div class="container">
-      <div class="top-controls">
-        <button id="go-back" class="btn-ghost" style="display:none;">← Go Back</button>
+      <!-- HERO / Common ecommerce text -->
+      <section class="hero">
+        <h1>High-quality digital products for creators</h1>
+        <p class="hero-sub">Ebooks, cheat sheets, printable wall art, AI prompt packs, and starter kits — ready to use and easy to customize.</p>
+      </section>
 
-        <div class="search-wrap">
-          <input id="search" type="search" placeholder="Search products, e.g. 'Galactic Odyssey'..." autocomplete="off" />
-          <div id="search-suggestions" class="search-suggestions" role="listbox"></div>
+      <!-- Payment video + QR -->
+      <section class="payment-section">
+        <div class="payment-left">
+          <h3>How to pay (UPI)</h3>
+          <p>Watch this quick demo to complete payment and submit the confirmation form. After payment, copy the product code and paste it in the confirmation form.</p>
+
+          <!-- Video placeholder: replace the src with your own video file or YouTube embed -->
+          <!-- TO REPLACE: change the <video> src OR replace with <iframe> YouTube embed (comment below shows how) -->
+          <div class="video-wrap">
+            <!-- Example: local MP4 -->
+            <video id="paymentVideo" controls style="width:100%;border-radius:10px">
+              <source src="assets/payment-demo.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <!-- Or use YouTube iframe:
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" style="width:100%;height:280px;border-radius:10px" frameborder="0" allowfullscreen></iframe>
+            -->
+            <small class="muted">Replace <code>assets/payment-demo.mp4</code> with your video file or use YouTube iframe.</small>
+          </div>
         </div>
+
+        <div class="payment-right">
+          <h3>Quick Pay (UPI)</h3>
+          <div class="qr-area">
+            <!-- QR will be generated here by script.js using CONFIG.UPI_ID -->
+            <canvas id="mainPageQR" aria-hidden="true"></canvas>
+            <div style="margin-top:10px;font-weight:700" id="upi-id-text">suchiangsanki3@okaxis</div>
+            <small class="muted">Scan to pay — then click &quot;Proceed to Form&quot; on the product modal.</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search -->
+      <div class="search-area">
+        <input id="search" class="search-input" type="search" placeholder="Search products (e.g. 'Galactic Odyssey')" />
+        <div id="search-suggestions" class="search-suggestions" style="display:none"></div>
       </div>
 
-      <div id="subcat-wrap" class="subcats" aria-label="Subcategories"></div>
+      <!-- subcat chips -->
+      <div id="subcat-wrap" class="subcats"></div>
 
-      <section id="category-grid" class="grid categories-grid" aria-live="polite"></section>
-      <section id="product-grid" class="grid products-grid" aria-live="polite" style="display:none"></section>
+      <!-- Back to all products (shown when filtered) -->
+      <div id="back-all-wrap" style="display:none; margin:10px 0;">
+        <button id="back-all" class="btn-ghost">← Back to All Products</button>
+      </div>
 
-      <div id="no-results" class="no-results" style="display:none;">No products found.</div>
+      <!-- Featured / Category grid and Product grid (filtered) -->
+      <section id="category-grid" class="products-section"></section>
+      <section id="product-grid" class="products-section" style="display:none"></section>
+
+      <div id="no-results" class="no-results" style="display:none">No products found.</div>
     </div>
   </main>
 
-  <aside id="product-panel" class="product-panel" aria-hidden="true"></aside>
+  <!-- PRODUCT SLIDE-IN PANEL -->
+  <aside id="product-panel" class="product-panel" aria-hidden="true" style="display:none"></aside>
 
-  <!-- Modal: payment + google form -->
-  <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Payment and confirmation form">
-      <div class="modal-header">
-        <h3>Complete your purchase</h3>
-        <button id="close-modal" class="close-modal" aria-label="Close modal">✕</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="modal-left">
-          <p class="muted">Pay via UPI — screenshot the payment and then submit the confirmation form to receive your product.</p>
-          <div class="upi-block">
-            <div class="form-label">UPI ID</div>
-            <div id="modal-upi" class="upi-text">your-upi@upi</div>
-            <div id="qr-wrap" class="qr-wrap" aria-hidden="true"></div>
-          </div>
-
-          <div class="modal-actions">
-            <a id="manual-instructions" class="link muted" href="#" target="_blank">How to pay via UPI</a>
-            <button id="i-paid" class="btn-primary">I Paid — Submitted form</button>
-            <div id="after-confirm" class="confirm-text" style="display:none;">🎉 Payment recorded — delivery will be sent within 10 hours.</div>
-          </div>
-        </div>
-
-        <div class="modal-right">
-          <div class="form-label">Confirmation form</div>
-          <!-- Large iframe for better UX; main.js will set src -->
-          <iframe id="google-form" class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLScFHxcYQoP6nrLCiNKva0_bYHoeWqBPi9tc_NzkHEsyq8ijuQ/viewform?embedded=true" title="Google confirmation form"></iframe>
-        </div>
-      </div>
+  <!-- BUY MODAL -->
+  <div id="buyModal" class="modal" aria-hidden="true">
+    <div class="modal-content buy-modal-card" role="dialog" aria-modal="true" aria-label="Buy product">
+      <button id="buyModalClose" class="close" aria-label="Close">✕</button>
+      <div id="buyModalContent"></div>
     </div>
   </div>
 
-  <footer class="site-footer">
-    <div class="footer-inner container">
-      <div class="footer-brand">
-        <div class="logo-mini" aria-hidden>
-          <svg viewBox="0 0 100 100" width="44" height="44"><circle cx="50" cy="50" r="40" fill="#6b8bff"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-weight="700">D</text></svg>
-        </div>
-        <div>
-          <strong>digistore</strong>
-          <div class="muted">Calm assets for creators — photos, templates, and starter kits.</div>
-        </div>
-      </div>
+  <!-- MOBILE DRAWER (for hamburger) -->
+  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+    <nav class="drawer-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
 
-      <div class="footer-links">
-        <div>
-          <h4>Products</h4>
-          <ul>
-            <li><a href="#" data-scroll="ebooks">Ebooks</a></li>
-            <li><a href="#" data-scroll="cheats">Cheat Sheets</a></li>
-            <li><a href="#" data-scroll="wall">Wall Art</a></li>
-            <li><a href="#" data-scroll="stickers">Stickers</a></li>
-            <li><a href="#" data-scroll="ai">AI Prompts</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Company</h4>
-          <ul>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-end">
-        <div>© <span id="year"></span> digistore</div>
-        <div class="muted">Made with care • Built for creators</div>
-      </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div><strong>digistore</strong> — assets for creators</div>
+      <div class="muted">© <span id="year"></span></div>
     </div>
   </footer>
 </body>
 </html>
+
 
