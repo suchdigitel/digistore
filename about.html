@@ -1,29 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About — digistore</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Digistore Visuals</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
-        <div style="font-weight:700;color:#fff">digistore</div>
-      </div>
-      <div><a class="btn-ghost" href="index.html">← Home</a></div>
-    </div>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Digistore Visuals</div>
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="container" style="padding:28px 16px">
-    <article class="content-card">
-      <h1>About Digistore</h1>
-      <p>Digistore is a curated marketplace of digital assets for creators, coaches, and small businesses. We provide ready-to-use products — ebooks, cheat sheets, printable wall art, stickers, AI prompt packs, and starter kits — so creators can focus on what matters.</p>
-      <p class="muted">Edit this file (<code>about.html</code>) to customize your brand story.</p>
-    </article>
+  <main class="page-content">
+    <section class="about-hero">
+      <h1>About Digistore Visuals</h1>
+      <p>Welcome to <strong>Digistore Visuals</strong> — your creative marketplace for premium digital products. From ebooks and stock images to productivity tools and templates, we focus on helping creators and learners thrive with high-quality, instantly accessible digital goods.</p>
+    </section>
+
+    <section class="about-details">
+      <h2>Our Mission</h2>
+      <p>We’re here to empower individuals and businesses with ready-to-use, value-driven digital assets. Unlike traditional marketplaces, our platform prioritizes personalization and quality, ensuring every download adds real value to your creative or professional journey.</p>
+
+      <h2>What Makes Us Different</h2>
+      <ul>
+        <li><strong>Direct, Secure Payments:</strong> We use UPI/QR-based payments — quick, safe, and accessible for everyone.</li>
+        <li><strong>Personalized Downloads:</strong> Every product is curated and constantly updated to meet modern needs.</li>
+        <li><strong>Zero Distractions:</strong> No ads, no unnecessary signups — just clean and easy access to what matters most.</li>
+      </ul>
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2025 Digistore Visuals. All rights reserved.</p>
+  </footer>
 </body>
 </html>
