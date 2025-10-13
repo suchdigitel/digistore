@@ -1,0 +1,83 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Confirm Purchase — digistore</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles2.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    // read query param for product id/title (optional)
+    function getQuery() {
+      const p = new URLSearchParams(location.search);
+      return { id: p.get('product') || '', title: p.get('title') || '' };
+    }
+    document.addEventListener('DOMContentLoaded', ()=> {
+      const q = getQuery();
+      if(q.title) document.getElementById('product-title').textContent = q.title;
+      // QR
+      const upi = 'your-upi@upi'; // placeholder; change in-script or in README
+      const qrWrap = document.getElementById('qr-wrap-form');
+      if(qrWrap && window.QRCode) QRCode.toCanvas(qrWrap, upi, { width:220 }, ()=>{});
+      // set embed (placeholder)
+      document.getElementById('google-embed').src = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true';
+      // go back
+      document.getElementById('back-home').addEventListener('click', ()=> location.href='index2.html');
+    });
+  </script>
+</head>
+<body class="page-gradient form-page">
+  <header class="site-header small-header">
+    <div class="header-inner">
+      <a class="brand" href="index2.html">
+        <div class="logo-wrap" aria-hidden>
+          <svg class="logo-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#a8c19b"/><text x="50%" y="55%" font-weight="700" font-size="44" fill="#2f4f3f" text-anchor="middle" dominant-baseline="middle">D</text></svg>
+        </div>
+        <div class="brand-text"><div class="brand-title">digistore</div><div class="brand-sub">confirm purchase</div></div>
+      </a>
+      <div class="header-actions">
+        <nav class="top-links desktop-only"><a href="index2.html">Home</a></nav>
+        <button id="back-home" class="btn-ghost mobile-only">← Go Back</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container form-container">
+    <div class="form-card elevated">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div>
+          <h2 id="product-title" style="margin:0 0 6px 0;color:#2f4f3f">Purchase Confirmation</h2>
+          <div class="muted">Complete payment and submit the confirmation form below</div>
+        </div>
+        <div style="text-align:right">
+          <div class="muted">UPI ID</div>
+          <div style="font-weight:700;color:#2f4f3f">your-upi@upi</div>
+          <div id="qr-wrap-form" style="margin-top:10px;"></div>
+        </div>
+      </div>
+
+      <hr style="margin:18px 0;border:none;border-top:1px solid rgba(0,0,0,0.06)"/>
+
+      <div class="form-embed-wrap">
+        <!-- Full-width Google Form embed placeholder -->
+        <iframe id="google-embed" title="Google confirmation form" class="google-form-full" src=""></iframe>
+      </div>
+
+      <div style="margin-top:14px;text-align:center">
+        <a class="btn-ghost" href="index2.html">← Back to store</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer about-footer">
+    <div class="footer-inner container"><div>© <span id="year-form"></span> digistore</div></div>
+  </footer>
+
+<script>
+  document.getElementById('year-form').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

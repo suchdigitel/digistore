@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — digistore</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-gradient">
+  <header class="site-header about-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <div class="logo-wrap" aria-hidden>
+          <svg class="logo-svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#6b8bff"/><text x="50%" y="55%" font-weight="700" font-size="42" fill="#fff" text-anchor="middle" dominant-baseline="middle">D</text></svg>
+        </div>
+        <div class="brand-text"><div class="brand-title">digistore</div><div class="brand-sub">digital products for creators</div></div>
+      </a>
+      <div class="header-actions"><nav class="top-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="privacy.html">Privacy</a></nav></div>
+    </div>
+  </header>
+
+  <main class="page about-page">
+    <div class="container">
+      <article class="content-card elevated">
+        <h1 class="big-title">Contact</h1>
+        <p>We'd love to hear from you. For support or custom requests, email us or use the quick form below.</p>
+
+        <h3>Email</h3>
+        <p><a href="mailto:hello@digistore.example">hello@digistore.example</a></p>
+
+        <h3>Quick contact form</h3>
+        <form action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="_blank">
+          <label>
+            Your name<br/>
+            <input type="text" name="entry.123456" placeholder="Your name" />
+          </label>
+          <label style="display:block;margin-top:12px">
+            Message<br/>
+            <textarea name="entry.654321" rows="5" placeholder="How can we help?"></textarea>
+          </label>
+          <div style="margin-top:12px">
+            <button class="btn-primary" type="submit">Send message</button>
+          </div>
+        </form>
+
+        <p class="muted" style="margin-top:12px">This form is a stub that posts to Google Forms action. Replace the action with your own endpoint if needed.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer about-footer">
+    <div class="footer-inner container">
+      <div>© <span id="year-contact"></span> digistore</div>
+    </div>
+  </footer>
+
+<script>document.getElementById('year-contact').textContent=new Date().getFullYear();</script>
+</body>
+</html>
