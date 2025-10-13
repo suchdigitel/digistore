@@ -40,8 +40,8 @@ PRODUCTS = {
 - To add a subcategory: push new object into the category array.
 - To add a product: append a product object into the subcategory's products array.
 - Ensure JSON syntax (commas/braces) is valid.
-====================================================== */
-const PRODUCTS = {
+====================================================== */          
+     const PRODUCTS = {
   "Ebooks": [
     {
       name: "Mind & Psychology / Self-Help",
@@ -90,7 +90,7 @@ const PRODUCTS = {
       products: [
         { id:"EB-SF-01", title:"Last Human Download", img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop", short:"A lone AI's last act", long:"Sci-fi narrative about identity & data.", price:"₹199" }
       ]
-    }, 
+    },
     {
       name: "Mystery / Thriller",
       img: "https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop",
@@ -110,7 +110,7 @@ const PRODUCTS = {
   ],
 
   /* OTHER categories (you asked to auto-fill others) - sample products added */
- 
+  
   "Cheat Sheets": [
     {
       "name": "Social Media & Content Strategy",
@@ -249,27 +249,25 @@ const PRODUCTS = {
         }
       ]
     },
-     {
-      "name": "Tutor & Activity Generation Prompts",
+    {
+      "name": "Educational AI Prompts", // Renamed for clarity, incorporating the Tutor product
       "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
       "products": [
         {
           "id": "AI-EDU-02",
-          "title": "Teacher's Aide Lesson & Activity Planner",
+          "title": "Teacher's Aide Lesson & Activity Planner (K-12/Tutors)",
           "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-          "short": "Customized learning prompts for Tutors.",
-          "long": "A prompt system for Tutors to quickly generate tailored study guides, personalized practice problems, and engaging activities based on individual student progress and weak points.",
+          "short": "Customized learning prompts for Educators and Tutors.",
+          "long": "A prompt system for Tutors and K-12 educators to quickly generate standards-aligned lesson plans, personalized practice problems, and engaging activities.",
           "price": "₹129"
         }
       ]
     }
   ],
-/*Printable wall posters(category):
- - Abstract and typographic + (bonus: bundle of 5 Mind and psychology poster)
- - gratitude and intentionality + (bonus: bundle of 5 productivity thoughts poster)*/
+  
   "Printable wall posters": [
     {
-      "name": "State of Mindfulness",
+      "name": "State of Mindfulness", // ADDED 'name' KEY HERE
       "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
       "products": [
         {
@@ -277,21 +275,21 @@ const PRODUCTS = {
           "title": "Abstract and typographic + (bonus: bundle of 5 Mind and psychology poster)",
           "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
           "short": "Wake up a thoughful day.",
-          "long": "",
+          "long": "High-resolution abstract and typographic art with a bonus pack of five posters focused on mental well-being.",
           "price": "₹399"
         },
-         {
+        {
           "id": "PW-SL-02",
-          "title": "Stressless + (bonus: bundle of 5 Mind and psychology poster)",
+          "title": "Gratitude & Intentionality + (bonus: bundle of 5 productivity thoughts poster)",
           "img": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-          "short": "Wake up a thoughful day.",
-          "long": "",
+          "short": "Daily reminders for growth.",
+          "long": "A set of posters promoting gratitude and intentional living, bundled with five productivity-focused thought posters for your workspace.",
           "price": "₹399"
-         }
-          ]
-      }
+        }
+      ]
+    }
   ]
-};
+};     
 /* ==================================================== */
 
 /* ========== DOM refs ========== */
