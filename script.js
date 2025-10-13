@@ -287,6 +287,7 @@ const PRODUCTS = {
           "short": "Wake up a thoughful day.",
           "long": "",
           "price": "₹399"
+         }
           ]
       }
   ]
