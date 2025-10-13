@@ -1,34 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy | Digistore Visuals</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy — digistore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Digistore Visuals</div>
-      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="privacy.html" class="active">Privacy</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
+        <div style="font-weight:700;color:#fff">digistore</div>
+      </div>
+      <div><a class="btn-ghost" href="index.html">← Home</a></div>
+    </div>
   </header>
 
-  <main class="page-content">
-    <section class="privacy-section">
+  <main class="container" style="padding:28px 16px">
+    <article class="content-card">
       <h1>Privacy Policy</h1>
-      <p>At <strong>Digistore Visuals</strong>, your privacy is our top priority. We are committed to protecting your personal data and maintaining transparency in how we handle it.</p>
-
-      <h2>Information We Collect</h2>
-      <p>We only collect essential details such as name, email, or file uploads when you submit a form for purchasing or receiving products. No sensitive or financial information is stored on our servers.</p>
-
+      <p>We respect your privacy. This policy explains how we collect, use, and protect your data. Digistore does not share your personal information with third parties except as necessary to process payments or deliver digital goods.</p>
+      <p>If you have questions, email garrancar867@gmail.com</p>
       <h2>Payment Security</h2>
       <p>All payments are securely handled via UPI or QR-based transfers. We do not store or process any banking information directly — ensuring full security through verified payment gateways.</p>
 
@@ -37,11 +31,27 @@
 
       <h2>Your Consent</h2>
       <p>By using our website, you agree to our privacy practices. If you have any questions, contact us via the <a href="contact.html">Contact Page</a>.</p>
-    </section>
-  </main>
+            <h2>Customer Rights</h2>
+      <p>At <strong>Digistore Visuals</strong>, we value transparency and respect your rights as a buyer. Every purchase made through our platform grants you fair and clear rights regarding the digital products you receive.</p>
 
-  <footer>
+      <ul class="customer-rights">
+        <li><strong>1. Right to Access:</strong> Upon successful payment confirmation, you will receive full access to your purchased digital files through the provided download link or email form response.</li>
+        <li><strong>2. Right to Use:</strong> All products are licensed for <em>personal or commercial use</em> according to the usage note included in each product description. Redistribution, resale, or public sharing without permission is not allowed.</li>
+        <li><strong>3. Right to Quality Delivery:</strong> If the downloaded file is corrupted, incomplete, or mismatched, you may request a replacement by contacting our support within <strong>3 days</strong> of purchase.</li>
+        <li><strong>4. Right to Privacy:</strong> Your uploaded or provided details are used solely for verification and delivery — we never sell or share them with third parties.</li>
+        <li><strong>5. Right to Support:</strong> You are entitled to free basic support for any purchased file (such as re-download or clarification requests) via our official email.</li>
+        <li><strong>6. No Hidden Charges:</strong> Prices shown are final. We do not apply additional fees or taxes during the transaction process.</li>
+      </ul>
+
+      <p class="disclaimer">
+        <em>Disclaimer:</em> Since all items are digital, we do not offer refunds once the product has been successfully delivered. However, we ensure that each product you receive matches its description and expected quality.
+      </p>
+
+    </article>
+  </main>
+<footer>
     <p>&copy; 2025 Digistore Visuals. All rights reserved.</p>
   </footer>
+  <script>document.getElementById('privacy-date').textContent = new Date().toLocaleDateString();</script>
 </body>
 </html>
