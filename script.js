@@ -42,7 +42,7 @@ PRODUCTS = {
 - Ensure JSON syntax (commas/braces) is valid.
 ====================================================== */
 const PRODUCTS = {
-  "ebooks": [
+  "Ebooks": [
     {
       name: "Mind & Psychology / Self-Help",
       img: "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_141144.png",
@@ -90,7 +90,7 @@ const PRODUCTS = {
       products: [
         { id:"EB-SF-01", title:"Last Human Download", img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop", short:"A lone AI's last act", long:"Sci-fi narrative about identity & data.", price:"₹199" }
       ]
-    },
+    }, 
     {
       name: "Mystery / Thriller",
       img: "https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop",
@@ -110,8 +110,8 @@ const PRODUCTS = {
   ],
 
   /* OTHER categories (you asked to auto-fill others) - sample products added */
-
-  "cheat sheet (category)": [
+ 
+  "Cheat Sheets": [
     {
       "name": "Social Media & Content Strategy",
       "img": "https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=1200&auto=format&fit=crop",
@@ -204,7 +204,7 @@ const PRODUCTS = {
     }
   ],
 
-  "printable educational/growth posters": [
+  "Printable Educational/Growth Posters": [
     { name:"Affirmation Posters", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_152102.png", products:[
       { id:"WA-01", title:"Dream Big Poster", img:"https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=1200&auto=format&fit=crop", short:"Motivational poster", long:"High-resolution poster with positive affirmation.", price:"₹99" }
     ]}
