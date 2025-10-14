@@ -81,7 +81,7 @@ PRODUCTS = {
       img: "https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop",
       products: [
         { id:"EB-HW-01", title:"Functional Food for Pregnancy", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_156t70156t70156t.png", short:"Nutrition guide", long:"Nutrition and functional foods tailored for pregnancy.", price:"₹199" },
-        { id:"EB-HW-02", title:"Pelvic Power", img:"", short:"Strength & rehab", long:"Exercises and guides for pelvic health.", price:"₹149" }
+        { id:"EB-HW-02", title:"Pelvic Power", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/IMG_20251014_105228.png", short:"Strength & rehab", long:"Exercises and guides for pelvic health.", price:"₹149" }
       ]
     },
     {
