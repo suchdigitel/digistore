@@ -59,18 +59,18 @@ PRODUCTS = {
       name: "Business & Productivity",
       img: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop",
       products: [
-        { id:"EB-BP-01", title:"Personal Brand Blueprint", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Build & grow your brand", long:"A roadmap for positioning yourself and creating authentic brand assets.", price:"₹249" },
-        { id:"EB-BP-02", title:"Time Audit & Life Mapping Guide", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Track time & reclaim focus", long:"Work through time audits, priorities, and weekly mapping to boost productivity.", price:"₹149" },
-        { id:"EB-BP-03", title:"The Art of Deep Work", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Focus & output techniques", long:"Methods and rituals to achieve deep, distraction-free work.", price:"₹199" },
-        { id:"EB-BP-04", title:"Passive Income Playbook for Beginners", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Start passive revenue streams", long:"Intro to practical passive income strategies for creators.", price:"₹199" },
-        { id:"EB-BP-05", title:"Scaling Your Freelance Business", img:"https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop", short:"Grow your freelance business", long:"Operations, pricing and systems for scaling freelancers into agencies.", price:"₹299" }
+        { id:"EB-BP-01", title:"Personal Brand Blueprint", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_7j3c007j3c007j3c.png", short:"Build & grow your brand", long:"A roadmap for positioning yourself and creating authentic brand assets.", price:"₹249" },
+        { id:"EB-BP-02", title:"Time Audit & Life Mapping Guide", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_lsv3gklsv3gklsv3.png", short:"Track time & reclaim focus", long:"Work through time audits, priorities, and weekly mapping to boost productivity.", price:"₹149" },
+        { id:"EB-BP-03", title:"The Art of Deep Work", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_h4b3s8h4b3s8h4b3.png", short:"Focus & output techniques", long:"Methods and rituals to achieve deep, distraction-free work.", price:"₹199" },
+        { id:"EB-BP-04", title:"Passive Income Playbook for Beginners", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_980ggm980ggm980g.png", short:"Start passive revenue streams", long:"Intro to practical passive income strategies for creators.", price:"₹199" },
+        { id:"EB-BP-05", title:"Scaling Your Freelance Business", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_upx8pxupx8pxupx8.png", short:"Grow your freelance business", long:"Operations, pricing and systems for scaling freelancers into agencies.", price:"₹299" }
       ]
     },
     {
       name: "Relationships & Communication",
       img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
       products: [
-        { id:"EB-RC-01", title:"Personal Growth Within the Partnership", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Grow while in relationship", long:"A guide to individual and mutual growth inside partnerships.", price:"₹169" },
+        { id:"EB-RC-01", title:"Personal Growth Within the Partnership", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_dz89tsdz89tsdz89.png", short:"Grow while in relationship", long:"A guide to individual and mutual growth inside partnerships.", price:"₹169" },
         { id:"EB-RC-02", title:"Communication Mastery", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Communicate with clarity", long:"Tools to express needs, listen deeply, and resolve conflict.", price:"₹149" },
         { id:"EB-RC-03", title:"Building a Shared Life and Managing Conflict", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Rituals & conflict tools", long:"Practical steps for building systems in shared lives.", price:"₹149" },
         { id:"EB-RC-04", title:"Strengthening Communication and Connection", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Deepen intimacy", long:"Exercises and prompts to increase connection.", price:"₹129" }
