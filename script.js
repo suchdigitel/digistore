@@ -71,40 +71,40 @@ PRODUCTS = {
       img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
       products: [
         { id:"EB-RC-01", title:"Personal Growth Within the Partnership", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_dz89tsdz89tsdz89.png", short:"Grow while in relationship", long:"A guide to individual and mutual growth inside partnerships.", price:"₹169" },
-        { id:"EB-RC-02", title:"Communication Mastery", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Communicate with clarity", long:"Tools to express needs, listen deeply, and resolve conflict.", price:"₹149" },
-        { id:"EB-RC-03", title:"Building a Shared Life and Managing Conflict", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Rituals & conflict tools", long:"Practical steps for building systems in shared lives.", price:"₹149" },
-        { id:"EB-RC-04", title:"Strengthening Communication and Connection", img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop", short:"Deepen intimacy", long:"Exercises and prompts to increase connection.", price:"₹129" }
+        { id:"EB-RC-02", title:"Communication Mastery", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_fvefagfvefagfvef.png", short:"Communicate with clarity", long:"Tools to express needs, listen deeply, and resolve conflict.", price:"₹149" },
+        { id:"EB-RC-03", title:"Building a Shared Life and Managing Conflict", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_j68svj68svj68svj.png", short:"Rituals & conflict tools", long:"Practical steps for building systems in shared lives.", price:"₹149" },
+        { id:"EB-RC-04", title:"Strengthening Communication and Connection", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_41e5ge41e5ge41e5.png", short:"Deepen intimacy", long:"Exercises and prompts to increase connection.", price:"₹129" }
       ]
     },
     {
       name: "Health & Wellness",
       img: "https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop",
       products: [
-        { id:"EB-HW-01", title:"Functional Food for Pregnancy", img:"https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop", short:"Nutrition guide", long:"Nutrition and functional foods tailored for pregnancy.", price:"₹199" },
-        { id:"EB-HW-02", title:"Pelvic Power", img:"https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop", short:"Strength & rehab", long:"Exercises and guides for pelvic health.", price:"₹149" }
+        { id:"EB-HW-01", title:"Functional Food for Pregnancy", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_156t70156t70156t.png", short:"Nutrition guide", long:"Nutrition and functional foods tailored for pregnancy.", price:"₹199" },
+        { id:"EB-HW-02", title:"Pelvic Power", img:"", short:"Strength & rehab", long:"Exercises and guides for pelvic health.", price:"₹149" }
       ]
     },
     {
       name: "Science Fiction",
       img: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop",
       products: [
-        { id:"EB-SF-01", title:"Last Human Download", img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop", short:"A lone AI's last act", long:"Sci-fi narrative about identity & data.", price:"₹199" }
+        { id:"EB-SF-01", title:"Last Human Download", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_ijza7jijza7jijza.png", short:"A lone AI's last act", long:"Sci-fi narrative about identity & data.", price:"₹199" }
       ]
     },
     {
       name: "Mystery / Thriller",
       img: "https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop",
       products: [
-        { id:"EB-MY-01", title:"The Algorithm Detective", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop", short:"Tech noir mystery", long:"A detective story about algorithmic bias.", price:"₹199" },
-        { id:"EB-MY-02", title:"Echoes of the Forgotten Town", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop", short:"Atmospheric historical mystery", long:"A small town with big secrets.", price:"₹179" },
-        { id:"EB-MY-03", title:"The Second Chance Promise", img:"https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop", short:"Thriller or drama", long:"A story of redemption and danger.", price:"₹179" }
+        { id:"EB-MY-01", title:"The Algorithm Detective", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_z1e05gz1e05gz1e0.png", short:"Tech noir mystery", long:"A detective story about algorithmic bias.", price:"₹199" },
+        { id:"EB-MY-02", title:"Echoes of the Forgotten Town", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_ufksh7ufksh7ufks.png", short:"Atmospheric historical mystery", long:"A small town with big secrets.", price:"₹179" },
+        { id:"EB-MY-03", title:"The Second Chance Promise", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_k77pkrk77pkrk77p.png", short:"Thriller or drama", long:"A story of redemption and danger.", price:"₹179" }
       ]
     },
     {
       name: "Children / Young Readers",
       img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
       products: [
-        { id:"EB-CH-01", title:"The Little Kitchen Explorer", img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop", short:"Interactive learning for kids", long:"A playful book encouraging kitchen experiments for children.", price:"₹129" }
+        { id:"EB-CH-01", title:"The Little Kitchen Explorer", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_yam93myam93myam9.png", short:"Interactive learning for kids", long:"A playful book encouraging kitchen experiments for children.", price:"₹129" }
       ]
     }
   ],
