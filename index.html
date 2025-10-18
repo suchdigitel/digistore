@@ -1,147 +1,732 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>digistore — Home</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Digistore — Home</title>
 
-  <!-- Fonts & CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- QR library & main JS -->
+  <!-- QR code lib -->
   <script defer src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <script defer src="script.js"></script>
+
+  <style>
+    /* small customizations */
+    .glass { background: rgba(255,255,255,0.02); backdrop-filter: blur(6px); }
+    .fade-up { transform: translateY(6px); opacity: 0; transition: all .45s ease; }
+    .fade-up.show { transform: translateY(0); opacity: 1; }
+    
+    /* Custom logo styles */
+    .logo-gradient {
+      background: linear-gradient(135deg, #f59e0b, #d97706, #fbbf24);
+    }
+    .logo-glow {
+      filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+    }
+  </style>
 </head>
-<body>
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="header-inner container">
-      <a href="index.html" class="brand">
-        <div class="logo-wrap" aria-hidden>
-          <!-- Neon D logo -->
-          <svg viewBox="0 0 100 100" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="neonG" x1="0" x2="1">
-                <stop offset="0" stop-color="#8A2BE2"/>
-                <stop offset="0.5" stop-color="#FF2D95"/>
-                <stop offset="1" stop-color="#00E5FF"/>
-              </linearGradient>
-            </defs>
-            <circle cx="50" cy="50" r="44" fill="url(#neonG)"></circle>
-            <text x="50%" y="55%" font-family="Poppins" font-weight="700" font-size="44" fill="#051225" text-anchor="middle" dominant-baseline="middle">D</text>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <div class="brand-title">digistore</div>
-          <div class="brand-sub">digital products for creators</div>
-        </div>
-      </a>
+<body class="bg-slate-900 text-slate-50 antialiased">
 
-      <div class="right-head">
-        <!-- Contact number: change in script.js CONFIG if needed -->
-        <div class="contact">📞 <span id="contact-number">+91-XXXXXXXXXX</span></div>
-        <button id="hamburger" class="hamburger" aria-label="Open menu">☰</button>
+  <!-- ===== HEADER WITH STYLISH LOGO ===== -->
+  <header class="bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-lg py-4">
+    <div class="flex flex-col items-center justify-center space-y-4">
+      <!-- Logo and Brand -->
+      <div class="flex items-center justify-center space-x-4">
+        <!-- Stylish Logo -->
+        <div class="flex items-center justify-center">
+          <div class="logo-gradient rounded-2xl p-3 w-16 h-16 flex items-center justify-center logo-glow transform rotate-3 hover:rotate-6 transition-transform duration-300">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 4L20 12L28 12L22 18L24 26L16 22L8 26L10 18L4 12L12 12L16 4Z" fill="white"/>
+              <circle cx="16" cy="16" r="14" stroke="white" stroke-width="2" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Brand Text -->
+        <div class="text-center">
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wider bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
+            DigiStore
+          </h1>
+          <p class="text-xs sm:text-sm opacity-80 mt-1 font-light">Creative · Informative · AI Inspired</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Category chips container (auto-wrap) -->
-    <div id="categories-bar" class="category-container container" aria-label="Categories"></div>
+      <!-- Navigation Links -->
+      <nav class="flex flex-wrap justify-center space-x-4 sm:space-x-6 text-sm sm:text-base font-semibold tracking-wide mt-2">
+        <a href="index.html" class="hover:text-amber-400 transition-colors px-3 py-1 rounded-lg hover:bg-slate-700">Home</a>
+        <a href="about.html" class="hover:text-amber-400 transition-colors px-3 py-1 rounded-lg hover:bg-slate-700">About</a>
+        <a href="privacy.html" class="hover:text-amber-400 transition-colors px-3 py-1 rounded-lg hover:bg-slate-700">Privacy</a>
+        <a href="norefund.html" class="hover:text-amber-400 transition-colors px-3 py-1 rounded-lg hover:bg-slate-700">Refund</a>
+        <a href="contact.html" class="hover:text-amber-400 transition-colors px-3 py-1 rounded-lg hover:bg-slate-700">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- MAIN -->
-  <main>
-    <div class="container">
-      <!-- HERO / Common ecommerce text -->
-      <section class="hero">
-        <h1>High-quality digital products for creators</h1>
-        <p class="hero-sub">Ebooks, cheat sheets, printable wall art, AI prompt packs, and starter kits — ready to use and easy to customize.</p>
-      </section>
-
-      <!-- Payment video + QR -->
-      <section class="payment-section">
-        <div class="payment-left">
-          <h3>How to pay (UPI)</h3>
-          <p>Watch this quick demo to complete payment and submit the confirmation form. After payment, copy the product code and paste it in the confirmation form.</p>
-
-          <!-- Video placeholder: replace the src with your own video file or YouTube embed -->
-          <!-- TO REPLACE: change the <video> src OR replace with <iframe> YouTube embed (comment below shows how) -->
-          <div class="video-wrap">
-            <!-- Example: local MP4 -->
-            <video id="paymentVideo" controls style="width:100%;border-radius:10px">
-              <source src="assets/payment-demo.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-            <!-- Or use YouTube iframe:
-            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" style="width:100%;height:280px;border-radius:10px" frameborder="0" allowfullscreen></iframe>
-            -->
-            <small class="muted">Replace <code>assets/payment-demo.mp4</code> with your video file or use YouTube iframe.</small>
-          </div>
+  <!-- ===== TOP HERO ===== -->
+  <section class="relative">
+    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop"
+         alt="team" class="w-full h-96 object-cover object-center brightness-[0.55]">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center px-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold drop-shadow-lg">Digital products that inform, inspire, and sell.</h1>
+        <p class="mt-4 text-lg text-slate-200 max-w-3xl mx-auto">High-quality, AI-assisted creations — designed to help creators, coaches, and small brands thrive.</p>
+        <p class="mt-2 text-sm text-slate-300 italic">We believe it doesn't matter where creativity originates — if it's helpful, informative and original, it belongs in your toolkit.</p>
+        <div class="mt-6 flex justify-center gap-3">
+          <a href="#categories" class="px-4 py-2 rounded-lg bg-gradient-to-r from-pink-500 to-cyan-400 text-slate-900 font-semibold hover:shadow-lg transform hover:scale-105 transition-all">Browse Categories</a>
+          
         </div>
-
-        <div class="payment-right">
-          <h3>Quick Pay (UPI)</h3>
-          <div class="qr-area">
-            <!-- QR will be generated here by script.js using CONFIG.UPI_ID -->
-            <img src="https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Others/IMG_20251013_203511.jpg">
-            <div style="margin-top:10px;font-weight:700" id="upi-id-text">suchiangsanki3@okaxis</div>
-            <small class="muted">Scan to pay — then click &quot;Proceed to Form&quot; on the product modal.</small>
-          </div>
-        </div>
-      </section>
-
-      <!-- Search -->
-      <div class="search-area">
-        <input id="search" class="search-input" type="search" placeholder="Search products (e.g. 'Galactic Odyssey')" />
-        <div id="search-suggestions" class="search-suggestions" style="display:none"></div>
       </div>
-
-      <!-- subcat chips -->
-      <div id="subcat-wrap" class="subcats"></div>
-
-      <!-- Back to all products (shown when filtered) -->
-      <div id="back-all-wrap" style="display:none; margin:10px 0;">
-        <button id="back-all" class="btn-ghost">← Back to All Products</button>
-      </div>
-
-      <!-- Featured / Category grid and Product grid (filtered) -->
-      <section id="category-grid" class="products-section"></section>
-      <section id="product-grid" class="products-section" style="display:none"></section>
-
-      <div id="no-results" class="no-results" style="display:none">No products found.</div>
     </div>
+  </section>
+
+  <!-- ===== MIDDLE STYLISH MOTIVATIONAL BLEND ===== -->
+  <section class="relative py-20">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>
+    <div class="relative max-w-4xl mx-auto px-4 text-center">
+      <div class="bg-gradient-to-r from-slate-800/60 to-slate-900/60 p-10 rounded-xl glass">
+        <h2 class="text-3xl md:text-4xl font-bold">AI-Crafted. Human-Inspired.</h2>
+        <p class="mt-2 text-slate-300">Every creation here blends imagination, intelligence, and intention.</p>
+
+        <div class="mt-6">
+          <h3 class="text-2xl font-semibold">Your ideas deserve better visuals.</h3>
+          <p class="mt-2 text-slate-300">Creativity knows no source—only impact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN: Search + Categories ===== -->
+  <main class="max-w-6xl mx-auto px-4 pb-12">
+    <!-- Search -->
+    <div class="flex justify-center mb-6">
+      <div class="w-full max-w-2xl">
+        <input id="search" type="search" placeholder="Search products by title, short desc, or code"
+               class="w-full rounded-xl px-4 py-3 bg-slate-800 border border-slate-700 text-slate-50 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent">
+        <div id="suggestions" class="mt-2 hidden bg-slate-800 rounded-md overflow-hidden shadow-lg border border-slate-700"></div>
+      </div>
+    </div>
+
+    <!-- Notice about digital delivery -->
+    <div class="text-center mb-6 text-slate-300">
+      <strong>Note:</strong> All products are delivered digitally via email attachment after payment verification.
+    </div>
+
+    <!-- Categories -->
+    <section id="categories" class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-100 mb-4">Categories</h2>
+      <div id="categories-bar" class="flex flex-wrap gap-3"></div>
+    </section>
+
+    <!-- Subcategories -->
+    <section id="subcatWrap" class="mb-6"></section>
+
+    <!-- Back button -->
+    <div id="backWrap" class="mb-4 hidden">
+      <button id="backBtn" class="px-3 py-2 rounded-md border border-slate-700 text-sm hover:bg-slate-700 transition-all">← Back to All Categories</button>
+    </div>
+
+    <!-- Products grid -->
+    <section id="productGrid" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></section>
+    <div id="noResults" class="text-center text-slate-400 mt-6 hidden">No products found.</div>
   </main>
 
-  <!-- PRODUCT SLIDE-IN PANEL -->
-  <aside id="product-panel" class="product-panel" aria-hidden="true" style="display:none"></aside>
+  <!-- ===== BOTTOM TECH BLENDING IMAGE ===== -->
+  <section class="relative mt-12">
+    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"
+         alt="tech" class="w-full h-60 object-cover brightness-[0.6]">
+    <div class="absolute inset-0 flex items-center justify-center text-center">
+      <div class="text-white">
+        <h3 class="text-2xl font-semibold">Innovation Meets Imagination</h3>
+        <p class="text-slate-200 mt-2">Experience creative value beyond boundaries.</p>
+      </div>
+    </div>
+  </section>
 
-  <!-- BUY MODAL -->
-  <div id="buyModal" class="modal" aria-hidden="true">
-    <div class="modal-content buy-modal-card" role="dialog" aria-modal="true" aria-label="Buy product">
-      <button id="buyModalClose" class="close" aria-label="Close">✕</button>
-      <div id="buyModalContent"></div>
+  <!-- ===== PRODUCT BUY MODAL ===== -->
+  <div id="buyModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md sm:max-w-lg md:max-w-xl shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]">
+      <!-- Modal Content (Scrollable) -->
+      <div class="overflow-y-auto p-6 space-y-4 text-gray-800">
+        <h2 id="modalTitle" class="text-xl sm:text-2xl font-bold text-gray-900"></h2>
+        <img id="modalImg" src="" alt="Product Image" class="rounded-lg w-full object-cover h-40 sm:h-56">
+        <p id="modalDesc" class="text-gray-600"></p>
+        
+        <!-- Quantity Dropdown -->
+        <div class="mt-3">
+          <label for="quantity" class="font-semibold text-gray-800">Quantity</label>
+          <select id="quantity" class="border border-gray-300 rounded-lg px-3 py-2 w-20 text-center focus:ring-2 focus:ring-amber-400 ml-3">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+
+        <p id="modalPrice" class="text-lg font-semibold text-amber-600"></p>
+
+        <!-- Payment Guide -->
+        <div class="bg-amber-50 border-l-4 border-amber-400 rounded p-3 text-sm leading-relaxed text-gray-700">
+          <h3 class="font-semibold text-amber-700 mb-1">How to Pay:</h3>
+          <ol class="list-decimal ml-5 space-y-1">
+            <li>Click "Proceed to Form" below.</li>
+            <li>Enter your Name, Email, and Product ID.</li>
+            <li>Use the displayed UPI/QR to send the payment.</li>
+            <li>Attach payment proof in the form and submit.</li>
+            <li>Your product will be delivered digitally via email.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-gray-200 bg-gray-50 flex justify-between items-center">
+        <button onclick="closeModal()" class="text-gray-700 hover:text-gray-900 font-semibold px-4 py-2 rounded-lg hover:bg-gray-200 transition-all">Cancel</button>
+        <button id="proceedBtn" class="bg-amber-500 hover:bg-amber-600 text-white px-5 py-2 rounded-lg font-semibold shadow-md transition-all transform hover:scale-105">
+          Proceed to Form
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- MOBILE DRAWER (for hamburger) -->
-  <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
-    <nav class="drawer-nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="norefund.html">All sales are final</a>
-    </nav>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container footer-inner">
-      <div><strong>digistore</strong> — assets for creators</div>
-      <div class="muted">© <span id="year"></span></div>
+  <!-- ===== FOOTER ===== -->
+  <footer class="mt-12 py-6 border-t border-slate-700">
+    <div class="max-w-6xl mx-auto px-4 text-center text-slate-400 text-sm">
+      © 2025 Digistore Visuals · All products delivered digitally via email after verification.
     </div>
   </footer>
+
+  <!-- ===== SCRIPT: PRODUCTS + UI LOGIC ===== -->
+  <script>
+    /* ========== CONFIG: change these values as needed ========== */
+    const CONFIG = {
+      CONTACT_NUMBER: '+91-7085416628',
+      UPI_ID: 'suchiangsanki3@okaxis',
+      FORM_PAGE: '1form.html'
+    };
+
+    // Initialize store immediately
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeStore();
+    });
+
+    /* ========== PRODUCTS DATA ========== */
+    const PRODUCTS = {
+      "Ebooks": [
+        {
+          name: "Mind & Psychology / Self-Help",
+          img: "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_141144.png",
+          products: [
+            { id:"EB-MP-01", title:"Overcoming Imposter Syndrome", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_94bxqi94bxqi94bx.png", short:"Tools to rebuild confidence", long:"A practical guide to recognise and overcome feelings of fraudulence, with exercises and reflections.", price:"₹199" },
+            { id:"EB-MP-02", title:"Ultimate Guide Towards Emotional Control", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_94bxqi94bxqi94bx%20(1).png", short:"Emotional regulation strategies", long:"Step-by-step methods for managing strong emotions and building emotional resilience.", price:"₹199" },
+            { id:"EB-MP-03", title:"Anxious but Awesome", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_wb6idawb6idawb6i.png", short:"Practical anxiety coping methods", long:"Short strategies to manage anxiety in daily life with simple practices.", price:"₹149" },
+            { id:"EB-MP-04", title:"The 5-minute Stress Solution", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_wb6idawb6idawb6i%20(1).png", short:"Quick stress relief hacks", long:"Micro-practices for instant calm throughout your day.", price:"₹99" },
+            { id:"EB-MP-05", title:"The Anxiety First-Aid Kit", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_wal5diwal5diwal5.png", short:"Emergency tools for panic", long:"A concise kit of steps to follow when anxiety spikes or panic sets in.", price:"₹129" },
+            { id:"EB-MP-06", title:"Mindset Shift and abundance", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_1y8bj11y8bj11y8b.png", short:"Abundance mindset techniques", long:"Exercises to reshape limiting beliefs and invite abundance into your life.", price:"₹179" }
+          ]
+        },
+        {
+          name: "Business & Productivity",
+          img: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop",
+          products: [
+            { id:"EB-BP-01", title:"Personal Brand Blueprint", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_7j3c007j3c007j3c.png", short:"Build & grow your brand", long:"A roadmap for positioning yourself and creating authentic brand assets.", price:"₹249" },
+            { id:"EB-BP-02", title:"Time Audit & Life Mapping Guide", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_lsv3gklsv3gklsv3.png", short:"Track time & reclaim focus", long:"Work through time audits, priorities, and weekly mapping to boost productivity.", price:"₹149" },
+            { id:"EB-BP-03", title:"The Art of Deep Work", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_h4b3s8h4b3s8h4b3.png", short:"Focus & output techniques", long:"Methods and rituals to achieve deep, distraction-free work.", price:"₹199" },
+            { id:"EB-BP-04", title:"Passive Income Playbook for Beginners", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_980ggm980ggm980g.png", short:"Start passive revenue streams", long:"Intro to practical passive income strategies for creators.", price:"₹199" },
+            { id:"EB-BP-05", title:"Scaling Your Freelance Business", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_upx8pxupx8pxupx8.png", short:"Grow your freelance business", long:"Operations, pricing and systems for scaling freelancers into agencies.", price:"₹299" }
+          ]
+        },
+        {
+          name: "Relationships & Communication",
+          img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop",
+          products: [
+            { id:"EB-RC-01", title:"Personal Growth Within the Partnership", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_dz89tsdz89tsdz89.png", short:"Grow while in relationship", long:"A guide to individual and mutual growth inside partnerships.", price:"₹169" },
+            { id:"EB-RC-02", title:"Communication Mastery", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_fvefagfvefagfvef.png", short:"Communicate with clarity", long:"Tools to express needs, listen deeply, and resolve conflict.", price:"₹149" },
+            { id:"EB-RC-03", title:"Building a Shared Life and Managing Conflict", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_j68svj68svj68svj.png", short:"Rituals & conflict tools", long:"Practical steps for building systems in shared lives.", price:"₹149" },
+            { id:"EB-RC-04", title:"Strengthening Communication and Connection", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_41e5ge41e5ge41e5.png", short:"Deepen intimacy", long:"Exercises and prompts to increase connection.", price:"₹129" }
+          ]
+        },
+        {
+          name: "Health & Wellness",
+          img: "https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop",
+          products: [
+            { id:"EB-HW-01", title:"Functional Food for Pregnancy", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_156t70156t70156t.png", short:"Nutrition guide", long:"Nutrition and functional foods tailored for pregnancy.", price:"₹199" },
+            { id:"EB-HW-02", title:"Pelvic Power", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/IMG_20251014_105228.png", short:"Strength & rehab", long:"Exercises and guides for pelvic health.", price:"₹149" }
+          ]
+        },
+        {
+          name: "Science Fiction",
+          img: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop",
+          products: [
+            { id:"EB-SF-01", title:"Last Human Download", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_ijza7jijza7jijza.png", short:"A lone AI's last act", long:"Sci-fi narrative about identity & data.", price:"₹199" }
+          ]
+        },
+        {
+          name: "Mystery / Thriller",
+          img: "https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=1200&auto=format&fit=crop",
+          products: [
+            { id:"EB-MY-01", title:"The Algorithm Detective", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_z1e05gz1e05gz1e0.png", short:"Tech noir mystery", long:"A detective story about algorithmic bias.", price:"₹199" },
+            { id:"EB-MY-02", title:"Echoes of the Forgotten Town", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_ufksh7ufksh7ufks.png", short:"Atmospheric historical mystery", long:"A small town with big secrets.", price:"₹179" },
+            { id:"EB-MY-03", title:"The Second Chance Promise", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_k77pkrk77pkrk77p.png", short:"Thriller or drama", long:"A story of redemption and danger.", price:"₹179" }
+          ]
+        },
+        {
+          name: "Children / Young Readers",
+          img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
+          products: [
+            { id:"EB-CH-01", title:"The Little Kitchen Explorer", img:"https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ebooks/Gemini_Generated_Image_yam93myam93myam9.png", short:"Interactive learning for kids", long:"A playful book encouraging kitchen experiments for children.", price:"₹129" }
+          ]
+        }
+      ],
+
+      "Cheat Sheets": [
+        {
+          "name": "Social Media & Content Strategy",
+          "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_143929.png",
+          "products": [
+            {
+              "id": "CS-SM-01",
+              "title": "Ultimate Hashtag Strategy",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_171557.jpg",
+              "short": "Trending & evergreen hashtag sets.",
+              "long": "A complete guide to finding and layering hashtags for maximum reach and target audience engagement.",
+              "price": "₹69"
+            },
+            {
+              "id": "CS-SM-02",
+              "title": "Video Hook Formulas",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_171201.jpg",
+              "short": "10 attention-grabbing openers.",
+              "long": "Ready-to-use script templates to hook viewers in the first 3 seconds of any short-form video.",
+              "price": "₹49"
+            },
+            {
+              "id": "CS-SM-03",
+              "title": "Perfect Posting Schedule",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_170754.png",
+              "short": "Optimal times for all platforms.",
+              "long": "A data-backed schedule showing the best day and time to post on Instagram, TikTok, LinkedIn, and X.",
+              "price": "₹39"
+            },
+            {
+              "id": "CS-SM-04",
+              "title": "Social Media Image Sizing",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_170809.png",
+              "short": "Quick size reference for 6 platforms.",
+              "long": "The definitive visual guide for all major image dimensions: posts, stories, reels, carousels, and profile headers.",
+              "price": "₹49"
+            }
+          ]
+        },
+        {
+          "name": "Design & Creativity",
+          "img": "https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=1200&auto=format&fit=crop",
+          "products": [
+            {
+              "id": "CS-DG-01",
+              "title": "Canva Shortcuts and Tips",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_171648.jpg",
+              "short": "Master the canvas with hotkeys.",
+              "long": "A powerful list of keyboard shortcuts and hidden tips to speed up your design workflow in Canva by 50%.",
+              "price": "₹29"
+            },
+            {
+              "id": "CS-DG-02",
+              "title": "Color Psychology for Brands",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_171508.jpg",
+              "short": "Match feelings to your color palette.",
+              "long": "Quick guide on how different colors influence emotion and perception, perfect for branding and marketing materials.",
+              "price": "₹59"
+            }
+          ]
+        },
+        {
+          "name": "Business & Productivity",
+          "img": "https://images.unsplash.com/photo-1517430816045-df4b7de166a1?q=80&w=1200&auto=format&fit=crop",
+          "products": [
+            {
+              "id": "CS-BP-01",
+              "title": "AI Prompt Engineering",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_171406.jpg",
+              "short": "Formulas for better AI outputs.",
+              "long": "Structure and keywords to use in your prompts to generate higher-quality text, code, and images from large language models.",
+              "price": "₹99"
+            },
+            {
+              "id": "CS-BP-02",
+              "title": "Project Management Workflow",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_171321.jpg",
+              "short": "Step-by-step task flow.",
+              "long": "A visual workflow chart detailing the stages of a project, from initiation and planning to execution and closure.",
+              "price": "₹69"
+            },
+            {
+              "id": "CS-BP-03",
+              "title": "Freelancer Proposal Template",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Cheat%20Sheets/IMG_20251016_221531.jpg",
+              "short": "Editable proposal for clients.",
+              "long": "A comprehensive, fill-in-the-blanks document covering scope, pricing, terms, and next steps for winning client projects.",
+              "price": "₹129"
+            }
+          ]
+        }
+      ],
+
+      "Ai Prompts": [
+        {
+          "name": "Visual & E-commerce AI Prompts",
+          "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_153230.png",
+          "products": [
+            {
+              "id": "AI-VEP-01",
+              "title": "Midjourney / DALL-E Product Mockup & Branding Kit",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ai%20Prompts/IMG_20251016_172118.jpg",
+              "short": "Visual Prompts for E-commerce Sellers/Digital Creators.",
+              "long": "A detailed set of prompt formulas to generate stunning, realistic product photography and lifestyle mockups for branding and listings.",
+              "price": "₹199"
+            },
+            {
+              "id": "AI-VEP-02",
+              "title": "The Hyper-Specific Niche Art Generator",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ai%20Prompts/IMG_20251016_171826.jpg",
+              "short": "Unique art styles for Print-on-Demand Sellers.",
+              "long": "Advanced prompt chains designed to produce unique, high-selling graphics and designs in competitive and niche markets for POD platforms.",
+              "price": "₹199"
+            }
+          ]
+        },
+        {
+          "name": "Content & Strategy AI Prompts",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+          "products": [
+            {
+              "id": "AI-VEP-03",
+              "title": "The SEO-Optimized Blog Post Generator",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ai%20Prompts/IMG_20251016_172025.jpg",
+              "short": "Full article prompts for Freelance Writers/Content Marketers.",
+              "long": "A prompt workflow for generating a complete, structure-perfect, and keyword-rich blog post ready for quick editing and publishing.",
+              "price": "₹149"
+            },
+            {
+              "id": "AI-VEP-04",
+              "title": "5-Minute Social Media Content Creator",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ai%20Prompts/IMG_20251016_171733.jpg",
+              "short": "Rapid daily content generation and captions.",
+              "long": "A prompt system that efficiently takes one idea and converts it into multiple days of engaging posts, hooks, and calls to action.",
+              "price": "₹99"
+            }
+          ]
+        },
+        {
+          "name": "Educational AI Prompts",
+          "img": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+          "products": [
+            {
+              "id": "AI-EDU-02",
+              "title": "Teacher's Aide Lesson & Activity Planner (K-12/Tutors)",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Ai%20Prompts/IMG_20251016_171907.jpg",
+              "short": "Customized learning prompts for Educators and Tutors.",
+              "long": "A prompt system for Tutors and K-12 educators to quickly generate standards-aligned lesson plans, personalized practice problems, and engaging activities.",
+              "price": "₹129"
+            }
+          ]
+        }
+      ],
+
+      "Printable wall posters": [
+        {
+          "name": "State of Mindfulness",
+          "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/IMG_20251013_212123.png",
+          "products": [
+            {
+              "id": "PW-AT-01",
+              "title": "Abstract and typographic + (bonus: bundle of 5 Mind and psychology poster)",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Printable%20Poster/IMG_20251018_080719.jpg",
+              "short": "Wake up a thoughful day.",
+              "long": "High-resolution abstract and typographic art with a bonus pack of five posters focused on mental well-being.",
+              "price": "₹399"
+            },
+            {
+              "id": "PW-SL-02",
+              "title": "Gratitude & Intentionality + (bonus: bundle of 5 productivity thoughts poster)",
+              "img": "https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Printable%20Poster/IMG_20251018_080843.jpg",
+              "short": "Daily reminders for growth.",
+              "long": "A set of posters promoting gratitude and intentional living, bundled with five productivity-focused thought posters for your workspace.",
+              "price": "₹399"
+            }
+          ]
+        }
+      ]
+    };
+
+    /* ---------- Store initialization functions ---------- */
+    function initializeStore() {
+      renderCategories();
+      renderCategoriesGrid();
+      setupSearch();
+    }
+
+    /* ---------- UTILS ---------- */
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+    const categoriesBar = document.getElementById('categories-bar');
+    const subcatWrap = document.getElementById('subcatWrap');
+    const productGrid = document.getElementById('productGrid');
+    const suggestions = document.getElementById('suggestions');
+    const searchInput = document.getElementById('search');
+    const noResults = document.getElementById('noResults');
+    const backWrap = document.getElementById('backWrap');
+    const backBtn = document.getElementById('backBtn');
+
+    /* Modal elements */
+    const buyModal = document.getElementById('buyModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImg = document.getElementById('modalImg');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalPrice = document.getElementById('modalPrice');
+    const quantity = document.getElementById('quantity');
+    const proceedBtn = document.getElementById('proceedBtn');
+
+    /* Ratings stored locally */
+    const RATINGS_KEY = 'digistore_ratings_v1';
+    function readRatings(){ try { return JSON.parse(localStorage.getItem(RATINGS_KEY) || '{}'); } catch(e){ return {}; } }
+    function writeRatings(v){ localStorage.setItem(RATINGS_KEY, JSON.stringify(v)); }
+    function addRating(id, score){ const r = readRatings(); const cur = r[id] || { sum:0, count:0 }; cur.sum += score; cur.count += 1; r[id] = cur; writeRatings(r); }
+
+    /* Render category pills */
+    function renderCategories(){
+      categoriesBar.innerHTML = '';
+      Object.keys(PRODUCTS).forEach((cat, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'px-4 py-2 rounded-full text-sm font-semibold ' + (i%2===0 ? 'bg-gradient-to-r from-pink-500 to-purple-500' : 'bg-gradient-to-r from-cyan-400 to-indigo-500');
+        btn.textContent = cat;
+        btn.addEventListener('click', ()=> {
+          renderSubcategories(cat);
+          renderProductsForCategory(cat);
+          backWrap.classList.remove('hidden');
+          productGrid.scrollIntoView({behavior:'smooth'});
+        });
+        categoriesBar.appendChild(btn);
+      });
+    }
+
+    /* Render a simple category grid (cards) - first subcategory's image used */
+    function renderCategoriesGrid(){
+      productGrid.innerHTML = '';
+      Object.keys(PRODUCTS).forEach(cat => {
+        const firstSub = PRODUCTS[cat][0];
+        const img = firstSub && firstSub.img ? firstSub.img : 'https://via.placeholder.com/600x400';
+        const card = document.createElement('div');
+        card.className = 'bg-slate-800 rounded-xl overflow-hidden shadow hover:shadow-xl transition-all duration-300';
+        card.innerHTML = `
+          <div class="h-44 bg-cover bg-center" style="background-image:url('${img}')"></div>
+          <div class="p-4">
+            <div class="text-lg font-semibold text-blue-300">${cat}</div>
+            <p class="text-sm text-slate-300 mt-2">Explore ${cat} — click to view subcategories and products.</p>
+            <div class="mt-4 flex gap-2">
+              <button class="view-btn px-3 py-2 rounded-md bg-gradient-to-r from-pink-500 to-cyan-400 text-slate-900 font-semibold hover:shadow-lg transform hover:scale-105 transition-all">View</button>
+            </div>
+          </div>
+        `;
+        card.querySelector('.view-btn').addEventListener('click', ()=> {
+          renderSubcategories(cat);
+          renderProductsForCategory(cat);
+          backWrap.classList.remove('hidden');
+          card.scrollIntoView({behavior:'smooth'});
+        });
+        productGrid.appendChild(card);
+      });
+    }
+
+    /* Render subcategories for a category */
+    function renderSubcategories(category){
+      subcatWrap.innerHTML = '';
+      const subs = PRODUCTS[category] || [];
+      if(subs.length === 0) return;
+      const container = document.createElement('div');
+      container.className = 'flex flex-wrap gap-3 mb-4';
+      subs.forEach(sc => {
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-2 rounded-md bg-slate-700 text-sm hover:bg-slate-600 transition-all';
+        btn.textContent = sc.name;
+        btn.addEventListener('click', ()=> {
+          renderProductsForSubcategory(category, sc.name);
+          backWrap.classList.remove('hidden');
+          window.scrollTo({ top: document.getElementById('productGrid').offsetTop - 80, behavior:'smooth' });
+        });
+        container.appendChild(btn);
+      });
+      subcatWrap.appendChild(container);
+    }
+
+    /* Render all products for a category (merged) */
+    function renderProductsForCategory(category){
+      const subs = PRODUCTS[category] || [];
+      let all = [];
+      subs.forEach(sc => sc.products.forEach(p => all.push({...p, __cat: category, __sub: sc.name})));
+      if(all.length === 0){ productGrid.innerHTML = ''; noResults.classList.remove('hidden'); return; }
+      noResults.classList.add('hidden');
+      productGrid.innerHTML = '';
+      all.forEach(p => productGrid.appendChild(createProductCard(p)));
+    }
+
+    /* Render only products for a subcategory (fixed behavior requested) */
+    function renderProductsForSubcategory(category, subName){
+      const subs = PRODUCTS[category] || [];
+      let found = false;
+      productGrid.innerHTML = '';
+      subs.forEach(sc => {
+        if(sc.name === subName){
+          found = true;
+          sc.products.forEach(p => productGrid.appendChild(createProductCard({...p, __cat: category, __sub: sc.name})));
+        }
+      });
+      if(!found) noResults.classList.remove('hidden'); else noResults.classList.add('hidden');
+    }
+
+    /* Create product card */
+    function createProductCard(p){
+      const el = document.createElement('article');
+      el.className = 'bg-slate-800 rounded-xl overflow-hidden shadow hover:scale-[1.02] transition-all duration-300 cursor-pointer';
+      el.innerHTML = `
+        <div class="h-44 bg-cover bg-center" style="background-image:url('${p.img || 'https://via.placeholder.com/600x400'}')"></div>
+        <div class="p-4">
+          <div class="flex items-start justify-between">
+            <div>
+              <h4 class="text-lg font-semibold">${escapeHtml(p.title)}</h4>
+              <div class="text-xs text-slate-400 mt-1">${escapeHtml(p.__cat)} › ${escapeHtml(p.__sub)}</div>
+              <p class="mt-2 text-sm text-slate-300">${escapeHtml(p.short || '')}</p>
+            </div>
+            <div class="text-right">
+              <div class="text-blue-400 font-extrabold text-lg">${escapeHtml(p.price || '₹—')}</div>
+              <div class="mt-3 flex flex-col gap-2">
+                <button class="buy-btn px-3 py-2 rounded-md bg-gradient-to-r from-pink-500 to-cyan-400 text-slate-900 font-semibold hover:shadow-lg transform hover:scale-105 transition-all">Buy</button>
+                <div class="rating-area" data-id="${p.id}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      // add rating UI
+      const ratingArea = el.querySelector('.rating-area');
+      ratingArea.appendChild(renderStars(p.id));
+
+      // click handlers
+      el.querySelector('.buy-btn').addEventListener('click', (e)=> {
+        e.stopPropagation();
+        openBuyModal(p);
+      });
+      el.addEventListener('click', (ev)=> {
+        if(ev.target.closest('.buy-btn') || ev.target.closest('.rating-area')) return;
+        openBuyModal(p);
+      });
+
+      return el;
+    }
+
+    /* =================== Modal functions =================== */
+    let activeProduct = null;
+    function openBuyModal(product){
+      activeProduct = product;
+      modalTitle.textContent = product.title;
+      modalImg.src = product.img || 'https://via.placeholder.com/600x400';
+      modalImg.alt = product.title;
+      modalDesc.textContent = product.long || product.short || '';
+      
+      const base = parseInt((product.price || '₹0').toString().replace(/[^\d]/g,'')) || 0;
+      modalPrice.textContent = `₹${base}`;
+      
+      quantity.onchange = ()=> {
+        const qty = parseInt(quantity.value);
+        const total = base * qty;
+        modalPrice.textContent = `₹${total}`;
+      };
+
+      proceedBtn.onclick = ()=> {
+        const params = new URLSearchParams({ 
+          product: product.id || '', 
+          title: product.title || '', 
+          qty: quantity.value || '1' 
+        });
+        location.href = CONFIG.FORM_PAGE + '?' + params.toString();
+      };
+
+      buyModal.classList.remove('hidden');
+    }
+
+    function closeModal(){
+      buyModal.classList.add('hidden');
+    }
+
+    /* =================== Search features =================== */
+    function setupSearch(){
+      searchInput.addEventListener('input', ()=> {
+        const q = searchInput.value.trim().toLowerCase();
+        suggestions.innerHTML = '';
+        if(!q){ suggestions.classList.add('hidden'); return; }
+        const matches = [];
+        Object.keys(PRODUCTS).forEach(cat=>{
+          PRODUCTS[cat].forEach(sc=>{
+            sc.products && sc.products.forEach(p=>{
+              if((p.title||'').toLowerCase().includes(q) || (p.short||'').toLowerCase().includes(q) || (p.id||'').toLowerCase().includes(q)){
+                matches.push({p, cat, sub: sc.name});
+              }
+            });
+          });
+        });
+        if(matches.length === 0){ suggestions.classList.add('hidden'); return; }
+        matches.slice(0,8).forEach(m=>{
+          const row = document.createElement('div');
+          row.className = 'px-3 py-2 hover:bg-slate-700 cursor-pointer transition-all';
+          row.innerHTML = `<div class="font-semibold">${escapeHtml(m.p.title)}</div><div class="text-xs text-slate-400">${escapeHtml(m.cat)} › ${escapeHtml(m.sub)}</div>`;
+          row.addEventListener('click', ()=> {
+            renderSubcategories(m.cat);
+            renderProductsForSubcategory(m.cat, m.sub);
+            suggestions.classList.add('hidden');
+            document.getElementById('productGrid').scrollIntoView({behavior:'smooth'});
+          });
+          suggestions.appendChild(row);
+        });
+        suggestions.classList.remove('hidden');
+      });
+    }
+
+    /* Back button behavior */
+    backBtn.addEventListener('click', ()=>{
+      renderCategoriesGrid();
+      subcatWrap.innerHTML = '';
+      backWrap.classList.add('hidden');
+      noResults.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior:'smooth' });
+    });
+
+    /* ======= small helpers ======= */
+    function escapeHtml(s){ return (s||'') .toString().replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+
+    /* ======= Ratings UI (clickable 1-5 stars) ======= */
+    function renderStars(id){
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex gap-1 items-center';
+      const data = readRatings()[id] || { sum:0, count:0 };
+      const avg = data.count ? data.sum / data.count : 0;
+      const stars = document.createElement('div'); stars.className = 'flex gap-1';
+      for(let i=1;i<=5;i++){
+        const s = document.createElement('button');
+        s.className = 'text-yellow-400 text-sm hover:scale-110 transition-transform';
+        s.innerHTML = (i <= Math.round(avg)) ? '★' : '☆';
+        s.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          addRating(id, i);
+          const newData = readRatings()[id];
+          const newAvg = newData ? newData.sum / newData.count : 0;
+          Array.from(stars.children).forEach((btn, idx)=> btn.innerHTML = (idx < Math.round(newAvg) ? '★' : '☆'));
+        });
+        stars.appendChild(s);
+      }
+      const val = document.createElement('div'); val.className = 'text-xs text-slate-400 ml-2';
+      val.textContent = data.count ? ((data.sum / data.count).toFixed(1) + ' / 5') : 'No ratings';
+      wrapper.appendChild(stars);
+      wrapper.appendChild(val);
+      return wrapper;
+    }
+
+  </script>
 </body>
 </html>
-
-
