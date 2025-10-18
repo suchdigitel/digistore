@@ -8,41 +8,34 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
-        <div style="font-weight:700;color:#fff">digistore</div>
-      </div>
-      <div><a class="btn-ghost" href="index.html">← Home</a></div>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html"><div class="logo-circle"><div style="font-weight:700">D</div></div><div class="brand-text"><div class="brand-title">digistore</div></div></a>
+      <nav class="main-nav"><a href="index.html" class="nav-link">Home</a> <a href="privacy.html" class="nav-link">Privacy</a></nav>
     </div>
   </header>
 
-  <main class="container" style="padding:28px 16px">
-    <article class="content-card">
-      <h1>Contact</h1>
-      <p>We'd love to hear from you. For support or custom requests, email us or use the quick form below.</p>
-      <h3>Email</h3>
-      <p><a class="muted" href="mailto:garrancar867@gmail.com">garrancar867@gmail.com</a></p>
+  <main class="container page-card">
+    <h1>Contact Us</h1>
+    <p>Need help with a purchase, delivery, or have a product idea? We’re here to help. Our team reviews every purchase confirmation form and responds promptly.</p>
 
-      <!-- Replace action with your Google Form direct POST link or other endpoint -->
-      <div class="contact-info">
-        <p><strong>Customer Support Hours:</strong> Monday – Friday, 9 AM to 6 PM IST</p>
-        <p><strong>Socials:</strong> 
-          <a href="#">Instagram</a> | 
-          <a href="#">Facebook</a> | 
-          <a href="#">Telegram</a>
-        </p>
+    <div class="contact-grid">
+      <div>
+        <strong>Email</strong>
+        <p><a href="mailto:garrancar867@gmail.com">support@digistore.example</a></p>
       </div>
+      <div>
+        <strong>Support Hours</strong>
+        <p>Mon–Sat: 9am–7pm IST</p>
+      </div>
+      <div>
+        <strong>Payment Help</strong>
+        <p>Payments are accepted via UPI / QR. After payment, submit the confirmation form (Upload screenshot + product code) and we will deliver within 10 hours of verification.</p>
+      </div>
+    </div>
 
-      <h2>Our Payment Approach</h2>
-      <p>Unlike traditional marketplaces, Digistore Visuals simplifies payments through secure <strong>UPI / QR-based transfers</strong>. Once your payment is verified manually, you’ll instantly receive access to your digital product via the form confirmation.</p>
-    </section>
+    <h3>Social</h3>
+    <p class="muted"><a href="#" target="_blank">Instagram</a> · <a href="#" target="_blank">Telegram</a> · <a href="#" target="_blank">X / Twitter</a></p>
   </main>
-    </article>
-  </main>
-<footer>
-    <p>&copy; 2025 Digistore Visuals. All rights reserved.</p>
-  </footer>
 </body>
 </html>
