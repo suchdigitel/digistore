@@ -3,120 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>No Refund Policy | Digistore Visuals</title>
-  <link rel="icon" href="favicon.ico" />
-  <style>
-    /* Page Gradient Background */
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #090979, #00d4ff);
-      color: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: linear-gradient(45deg, #fff, #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      color: #d1e7ff;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      max-width: 800px;
-      line-height: 1.7;
-      font-size: 1.1rem;
-      color: #e0e0e0;
-      margin: 0 auto 1.5rem auto;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      max-width: 700px;
-      margin: 0 auto 2rem auto;
-    }
-
-    li {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 0.8rem 1rem;
-      margin: 0.6rem 0;
-      transition: background 0.3s;
-    }
-
-    li:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .note {
-      font-style: italic;
-      color: #b0e3ff;
-      font-size: 0.95rem;
-    }
-
-    .back-btn {
-      display: inline-block;
-      padding: 0.8rem 1.6rem;
-      background: linear-gradient(45deg, #00d4ff, #090979);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: all 0.3s;
-      margin-top: 1.5rem;
-      font-weight: 500;
-    }
-
-    .back-btn:hover {
-      transform: scale(1.05);
-      background: linear-gradient(45deg, #090979, #00b2ff);
-    }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #b0e3ff;
-      opacity: 0.9;
-    }
-  </style>
+  <title>No Refund Policy | Digistore</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <h1>All Sales Are Final</h1>
-    <h2>No Refund Policy</h2>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html"><div class="logo-circle"><div style="font-weight:700">D</div></div><div class="brand-text"><div class="brand-title">digistore</div></div></a>
+      <nav class="main-nav"><a href="index.html" class="nav-link">Home</a> <a href="privacy.html" class="nav-link">Privacy</a></nav>
+    </div>
+  </header>
 
-    <p>At <strong>Digistore</strong>, every product we sell is a digital file that is instantly accessible after purchase. Once the payment is completed and the digital content is delivered, it cannot be returned, revoked, or exchanged. Therefore, <strong>all sales are final</strong>.</p>
+  <main class="container page-card">
+    <h1>All Sales Are Final</h1>
+    <p>All items on Digistore are digital and delivered upon verification. For this reason, we operate on a strict <strong>No Refund / All Sales Are Final</strong> policy. Please review product descriptions and codes carefully before purchase.</p>
 
     <ul>
-      <li><strong>Instant Access:</strong> Digital products are made available for immediate download or delivery through your provided email/form link after successful payment.</li>
-      <li><strong>Non-Returnable:</strong> Since the products are intangible, there is no physical item to return, and downloads cannot be revoked once shared.</li>
-      <li><strong>Accidental Purchases:</strong> Please review your order carefully before confirming payment. We do not offer refunds for accidental or duplicate purchases.</li>
-      <li><strong>Defective Files:</strong> If a file is corrupted or incomplete, contact us within <strong>7 days</strong> for a verified replacement at no additional cost.</li>
-      <li><strong>Unauthorized Sharing:</strong> Redistribution or resale of purchased digital products is strictly prohibited under our terms of use.</li>
+      <li><strong>Instant Access:</strong> Downloads are provided after confirmation of payment.</li>
+      <li><strong>Non-Returnable:</strong> Digital items can’t be returned once delivered.</li>
+      <li><strong>Corrupted Files:</strong> If a file is corrupted, contact support within 7 days for a verified replacement.</li>
     </ul>
 
-    <p class="note">By completing your purchase, you acknowledge that you have read, understood, and agreed to our <strong>No Refund / All Sales Are Final</strong> policy.</p>
-
-    <a href="index.html" class="back-btn">← Back to Home</a>
+    <p class="muted">By purchasing, you acknowledge this policy. Contact support for any delivery issues.</p>
   </main>
-
-  <footer>
-    © 2025 Digistore Visuals. All Rights Reserved.
-  </footer>
 </body>
 </html>
