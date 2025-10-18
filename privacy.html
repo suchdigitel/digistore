@@ -8,50 +8,33 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner container">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
-        <div style="font-weight:700;color:#fff">digistore</div>
-      </div>
-      <div><a class="btn-ghost" href="index.html">← Home</a></div>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="index.html"><div class="logo-circle"><div style="font-weight:700">D</div></div><div class="brand-text"><div class="brand-title">digistore</div></div></a>
+      <nav class="main-nav"><a href="index.html" class="nav-link">Home</a> <a href="about.html" class="nav-link">About</a></nav>
     </div>
   </header>
 
-  <main class="container" style="padding:28px 16px">
-    <article class="content-card">
-      <h1>Privacy Policy</h1>
-      <p>We respect your privacy. This policy explains how we collect, use, and protect your data. Digistore does not share your personal information with third parties except as necessary to process payments or deliver digital goods.</p>
-      <p>If you have questions, email garrancar867@gmail.com</p>
-      <h2>Payment Security</h2>
-      <p>All payments are securely handled via UPI or QR-based transfers. We do not store or process any banking information directly — ensuring full security through verified payment gateways.</p>
+  <main class="container page-card">
+    <h1>Privacy Policy</h1>
 
-      <h2>Cookies & Data Usage</h2>
-      <p>We use minimal cookies solely to improve site performance and remember your preferences. We never sell or share your information with third parties.</p>
+    <p>We respect your privacy. Digistore collects only the minimum information required to confirm purchases and deliver digital products (name, email, product code, and uploaded payment screenshot). We do not store payment credentials; payments are processed via UPI apps or payment gateways you choose to use.</p>
 
-      <h2>Your Consent</h2>
-      <p>By using our website, you agree to our privacy practices. If you have any questions, contact us via the <a href="contact.html">Contact Page</a>.</p>
-            <h2>Customer Rights</h2>
-      <p>At <strong>Digistore Visuals</strong>, we value transparency and respect your rights as a buyer. Every purchase made through our platform grants you fair and clear rights regarding the digital products you receive.</p>
+    <h2>How we use your data</h2>
+    <ul>
+      <li>To verify payments and deliver products</li>
+      <li>To respond to support inquiries</li>
+      <li>To occasionally send product updates (only if you opt-in)</li>
+    </ul>
 
-      <ul class="customer-rights">
-        <li><strong>1. Right to Access:</strong> Upon successful payment confirmation, you will receive full access to your purchased digital files through the provided download link or email form response.</li>
-        <li><strong>2. Right to Use:</strong> All products are licensed for <em>personal or commercial use</em> according to the usage note included in each product description. Redistribution, resale, or public sharing without permission is not allowed.</li>
-        <li><strong>3. Right to Quality Delivery:</strong> If the downloaded file is corrupted, incomplete, or mismatched, you may request a replacement with strong proof by contacting our support within <strong>7 days</strong> of purchase.</li>
-        <li><strong>4. Right to Privacy:</strong> Your uploaded or provided details are used solely for verification and delivery — we never sell or share them with third parties.</li>
-        <li><strong>5. Right to Support:</strong> You are entitled to free basic support for any purchased file (such as re-download or clarification requests) via our official email.</li>
-        <li><strong>6. No Hidden Charges:</strong> Prices shown are final. We do not apply additional fees or taxes during the transaction process.</li>
-      </ul>
+    <h2>Customer Rights</h2>
+    <ul class="customer-rights">
+      <li><strong>Right to Access:</strong> You will receive access to purchased files upon verification.</li>
+      <li><strong>Right to Quality Delivery:</strong> If files are corrupted, contact us within 7 days for a replacement.</li>
+      <li><strong>Right to Privacy:</strong> We use your form-upload only for verification and will not share it with third parties.</li>
+    </ul>
 
-      <p class="disclaimer">
-        <em>Disclaimer:</em> Since all items are digital, we do not offer refunds once the product has been successfully delivered. However, we ensure that each product you receive matches its description and expected quality.
-      </p>
-
-    </article>
+    <p class="disclaimer">Because our products are digital, refunds are limited. See our <a href="norefund.html">No Refund / All Sales Are Final</a> page for full details.</p>
   </main>
-<footer>
-    <p>&copy; 2025 Digistore Visuals. All rights reserved.</p>
-  </footer>
-  <script>document.getElementById('privacy-date').textContent = new Date().toLocaleDateString();</script>
 </body>
 </html>
