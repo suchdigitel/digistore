@@ -6,35 +6,168 @@
   <title>Confirm Purchase — digistore</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"/>
-  <script defer src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0a0e1a;
+      color: #fff;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    
+    .topbar {
+      background: linear-gradient(90deg, #FF2D95, #00E5FF);
+      padding: 12px 0;
+    }
+    
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-circle {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 50%;
+      color: #071025;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .form-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 24px 0;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    
+    .muted {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+    
+    .qr-container {
+      text-align: right;
+      flex: 0 0 auto;
+    }
+    
+    .qr-image {
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+    
+    .product-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+    
+    @media (max-width: 768px) {
+      .header-row {
+        flex-direction: column;
+      }
+      
+      .qr-container {
+        text-align: center;
+        margin-top: 16px;
+      }
+      
+      .qr-image {
+        max-width: 160px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .form-card {
+        padding: 16px;
+      }
+      
+      .qr-image {
+        max-width: 140px;
+      }
+    }
+  </style>
+  
   <script>
-    function qs(){ const p=new URLSearchParams(location.search); return { product: p.get('product')||'', title: p.get('title')||'' }; }
+    function qs(){ 
+      const p = new URLSearchParams(location.search); 
+      return { 
+        product: p.get('product') || '', 
+        title: p.get('title') || '' 
+      }; 
+    }
+    
     document.addEventListener('DOMContentLoaded', ()=>{
       const data = qs();
       if(data.title) document.getElementById('product-title').textContent = decodeURIComponent(data.title);
       if(data.product) document.getElementById('product-id').textContent = data.product;
 
-      // Note: QR on main page; this page focuses on embedded form (with uploads)
-      // Replace the iframe src below if you change forms later.
+      // 🔧 REPLACE FORM EMBED LINK HERE if you ever update your Google Form
+      // Keep the ?embedded=true suffix
       document.getElementById('google-embed').src = 'https://docs.google.com/forms/d/e/1FAIpQLSeE58S_INbd6N_Pr21AkWtel4yVvEU3GqlUVM2bxcS9ipF_Wg/viewform?embedded=true';
 
       document.getElementById('back-btn').addEventListener('click', ()=> {
-        // Try to return to stored previous URL (we save this when opening form) then fallback to history or home
         const prev = sessionStorage.getItem('digistore_prev');
-        if(prev){ sessionStorage.removeItem('digistore_prev'); location.href = prev; }
+        if(prev){ 
+          sessionStorage.removeItem('digistore_prev'); 
+          location.href = prev; 
+        }
         else if(history.length > 1) history.back();
-        else location.href = 'index.html';
+        else location.href = '1index.html';
       });
-      document.getElementById('year-form').textContent = new Date().getFullYear();
     });
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner container" style="justify-content:space-between">
+  <header class="topbar">
+    <div class="container topbar-inner">
       <div style="display:flex;gap:12px;align-items:center">
-        <div style="width:44px;height:44px;border-radius:8px;background:linear-gradient(90deg,#8A2BE2,#FF2D95,#00E5FF);display:flex;align-items:center;justify-content:center;color:#051225;font-weight:700">D</div>
+        <div class="logo-circle">D</div>
         <div style="font-weight:700;color:#fff">digistore</div>
       </div>
       <div>
@@ -45,15 +178,17 @@
 
   <main class="container" style="padding:24px 16px">
     <div class="form-card">
-      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <div>
+      <div class="header-row">
+        <div class="product-info">
           <h2 id="product-title" style="margin:0;color:#fff">Purchase Confirmation</h2>
           <div class="muted" style="margin-top:6px">Product ID: <span id="product-id">—</span></div>
-          <div style="margin-top:6px;color:#ddd">After payment, paste product code into the form and submit to receive your product.</div>
+          <div style="margin-top:6px;color:#ddd">After payment, paste the product code into the form and submit to receive your product within 10 hours.</div>
         </div>
 
-        <div style="text-align:right">
+        <div class="qr-container">
           <div class="muted" style="font-size:12px">UPI (scan)</div>
+          <img src="https://raw.githubusercontent.com/suchdigitel/digistore/refs/heads/main/Images/Others/IMG_20251013_203511.jpg" 
+               alt="UPI QR Code" class="qr-image">
           <div style="font-weight:700;color:#fff">your-upi@upi</div>
         </div>
       </div>
@@ -61,12 +196,12 @@
       <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.06)">
 
       <div>
-        <!-- Embedded Google Form (file uploads will work) -->
+        <!-- Embedded Google Form: responsive iframe -->
         <iframe id="google-embed" title="Google confirmation form" style="width:100%;height:78vh;border-radius:8px;border:1px solid rgba(255,255,255,0.06)"></iframe>
       </div>
 
       <div style="margin-top:12px;text-align:center">
-        <a class="btn-ghost" href="index.html">← Back to Store</a>
+        <a class="btn-ghost" href="1index.html">← Back to Store</a>
       </div>
     </div>
   </main>
@@ -74,5 +209,7 @@
   <footer style="padding:18px 0;background:linear-gradient(90deg,#FF2D95,#00E5FF)">
     <div class="container" style="color:#fff;text-align:center">© <span id="year-form"></span> digistore</div>
   </footer>
+
+  <script>document.getElementById('year-form').textContent = new Date().getFullYear();</script>
 </body>
 </html>
